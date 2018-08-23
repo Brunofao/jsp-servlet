@@ -23,7 +23,8 @@
  */
 package Controllers;
 
-import DAO.PersonaDAO;
+import DAO.MascotaDAO;
+import Models.Mascota;
 import Models.Persona;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -39,10 +40,10 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author John Wick Recargado
  */
-@WebServlet(name = "PersonaC", urlPatterns = {"/persona"})
-public class PersonaC extends HttpServlet {
+@WebServlet(name = "MascotaC", urlPatterns = {"/mascota"})
+public class MascotaC extends HttpServlet {
     //
-    PersonaDAO pdao = new PersonaDAO();
+    MascotaDAO mdao = new MascotaDAO();
     //
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -61,10 +62,10 @@ public class PersonaC extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet PersonaC</title>");            
+            out.println("<title>Servlet MascotaC</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet PersonaC at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet MascotaC at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -82,19 +83,20 @@ public class PersonaC extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        pdao.clearDatabase();
+        mdao.clearDatabase();
         Persona p = new Persona("25595819", "Bruno", "Faoro", "04249585812");
-        pdao.add(p);
-        System.out.println("Success -> " + p.getName());
+        Mascota m = new Mascota(p, "819faoro", "Clementina", "Perro", 35.4f, "Femenino", "2", "Bull Terrier Inglés");
         
-        List<Persona> p2 = pdao.read();
+        mdao.add(m);
+        
+        List<Mascota> p2 = mdao.read();
         
         p2.forEach((lp0) -> {
             System.out.println(lp0);
         });
         
         request.setAttribute("lista", p2);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/Vistas/persona-r.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/Vistas/mascota-r.jsp");
         dispatcher.forward(request, response);
     }
 

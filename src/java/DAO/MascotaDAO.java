@@ -24,9 +24,10 @@
 package DAO;
 
 import Models.Conexion;
-import Models.Persona;
+import Models.Mascota;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
+import com.db4o.query.Query;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,28 +35,30 @@ import java.util.List;
  *
  * @author John Wick Recargado
  */
-public class PersonaDAO {
+public class MascotaDAO {
     //
     Conexion con;
     ObjectContainer db = null;
     //
     
-    public PersonaDAO() {
+    public MascotaDAO() {
         con = new Conexion();
     }
     
-    public void add(Persona p) {
+    public void add(Mascota p) {
         db = con.open();
         db.store(p);
         con.close(db);
     }
     
-    public List<Persona> read() {
+    public List<Mascota> read() {        
         db = con.open();
-        List<Persona> p = new ArrayList<>();
-        ObjectSet listP = db.queryByExample(Persona.class);
+        List<Mascota> p = new ArrayList<>();
+        Query query = db.query();
+        query.constrain(Mascota.class);
+        ObjectSet listP = query.execute();
         listP.forEach((listP0) -> {
-            p.add((Persona)listP0);
+            p.add((Mascota)listP0);
         });
         con.close(db);
         return p;
@@ -63,7 +66,7 @@ public class PersonaDAO {
     
     public void clearDatabase() {
         db = con.open();
-        ObjectSet result=db.queryByExample(Persona.class);
+        ObjectSet result=db.queryByExample(Mascota.class);
         while(result.hasNext()) {
             db.delete(result.next());
         }

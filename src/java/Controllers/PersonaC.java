@@ -84,8 +84,9 @@ public class PersonaC extends HttpServlet {
             throws ServletException, IOException {
         pdao.clearDatabase();
         Persona p = new Persona("25595819", "Bruno", "Faoro", "04249585812");
+        Persona p1 = new Persona("00000000", "Bruno", "Tranquini", "00000000000");
         pdao.add(p);
-        System.out.println("Success -> " + p.getName());
+        pdao.add(p1);
         
         List<Persona> p2 = pdao.read();
         

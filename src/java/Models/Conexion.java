@@ -36,7 +36,7 @@ import com.db4o.ext.OldFormatException;
  * @author John Wick Recargado
  */
 public class Conexion {
-        //
+    //
     private final String name = "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o";
     //
 
@@ -49,7 +49,7 @@ public class Conexion {
         } catch(DatabaseFileLockedException | DatabaseReadOnlyException | Db4oIOException | IncompatibleFileFormatException | OldFormatException e) {
             System.out.println("Problems in -> Conexion <-");
         } 
-      
+        
         return null;
     }
     

@@ -61,6 +61,14 @@ public class PersonaDAO {
         return p;
     }
     
+    public Persona findAPerson(Persona p) {        
+        db = con.open();
+        ObjectSet result = db.queryByExample(p);
+        Persona persona = (Persona) result.next();
+        con.close(db);
+        return persona;
+    }
+    
     public void clearDatabase() {
         db = con.open();
         ObjectSet result=db.queryByExample(Persona.class);

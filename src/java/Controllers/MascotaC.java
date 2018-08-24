@@ -24,6 +24,7 @@
 package Controllers;
 
 import DAO.MascotaDAO;
+import DAO.PersonaDAO;
 import Models.Mascota;
 import Models.Persona;
 import java.io.IOException;
@@ -43,6 +44,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "MascotaC", urlPatterns = {"/mascota"})
 public class MascotaC extends HttpServlet {
     //
+    PersonaDAO pdao = new PersonaDAO();
     MascotaDAO mdao = new MascotaDAO();
     //
     /**
@@ -86,16 +88,17 @@ public class MascotaC extends HttpServlet {
         mdao.clearDatabase();
         Persona p = new Persona("25595819", "Bruno", "Faoro", "04249585812");
         Mascota m = new Mascota(p, "819faoro", "Clementina", "Perro", 35.4f, "Femenino", "2", "Bull Terrier Inglés");
-        
+
         mdao.add(m);
-        
+
         List<Mascota> p2 = mdao.read();
-        
+
         p2.forEach((lp0) -> {
             System.out.println(lp0);
         });
-        
+
         request.setAttribute("lista", p2);
+        
         RequestDispatcher dispatcher = request.getRequestDispatcher("/Vistas/mascota-r.jsp");
         dispatcher.forward(request, response);
     }
@@ -111,6 +114,31 @@ public class MascotaC extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/Vistas/mascota-c.jsp");
+        
+        String dni = request.getParameter("dni");
+        String name = request.getParameter("name");
+        String species = request.getParameter("species");
+        
+        Persona aux = new Persona();
+        Mascota m = new Mascota();
+        
+        System.out.println(dni);
+        aux.setDni(dni);
+        
+        aux = pdao.findAPerson(aux);
+        System.out.println(aux.getLastname());
+        
+        Persona p = aux;
+        System.out.println(p.getDni());
+        
+        m.setPersona(p);
+        m.setName(name);
+        m.setSpecies(species);
+        
+        mdao.add(m);
+        
+        dispatcher.forward(request, response);
     }
 
     /**

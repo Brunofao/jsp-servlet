@@ -1,6 +1,6 @@
 <%-- 
     Document   : persona-c
-    Created on : 22/08/2018, 12:10:33 AM
+    Created on : 22/08/2018, 10:23:30 PM
     Author     : John Wick Recargado
 --%>
 
@@ -57,3 +57,4 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
   </body>
 </html>
+

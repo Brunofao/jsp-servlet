@@ -7,28 +7,28 @@
 <!-- Sidebar  -->
 <nav id="sidebar">
     <div class="sidebar-header">
-        <h3>Bootstrap Sidebar</h3>
+        <a class="h3" href="/">Peluditos Pet's</a>
     </div>
 
-    <ul class="list-unstyled components">
-        <p>Dummy Heading</p>
-        <li class="active">
+    <ul class="list-unstyled components ptt2">
+        <h4>Bruno Faoro</h5>
+        <h4>Jesús Requena</h5>
+        <li class="active ptt">
             <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
             <ul class="collapse list-unstyled" id="homeSubmenu">
                 <li>
-                    <a href="#">Home 1</a>
+                    <a href="/persona">Menú 1</a>
                 </li>
                 <li>
-                    <a href="#">Home 2</a>
-                </li>
-                <li>
-                    <a href="#">Home 3</a>
+                    <a href="/mascota">Menú 2</a>
                 </li>
             </ul>
         </li>
-        <li>
-            <a href="#">About</a>
-        </li>
+        <!--
+            <li>
+                <a href="#">About</a>
+            </li>
+        -->
         <li>
             <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
             <ul class="collapse list-unstyled" id="pageSubmenu">
@@ -43,11 +43,13 @@
                 </li>
             </ul>
         </li>
-        <li>
-            <a href="#">Portfolio</a>
-        </li>
-        <li>
-            <a href="#">Contact</a>
-        </li>
+        <!--
+            <li>
+                <a href="#">Portfolio</a>
+            </li>
+            <li>
+                <a href="#">Contact</a>
+            </li>
+        -->
     </ul>
 </nav>

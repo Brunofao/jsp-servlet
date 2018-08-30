@@ -94,8 +94,11 @@ public class PersonaC extends HttpServlet {
             System.out.println(lp0);
         });
         
+        Persona pruebita = pdao.findAPersonaByDNI(p.getDni());
+        System.out.println(pruebita.getName() + " " + "qué duro perro, buena función");
+        
         request.setAttribute("lista", p2);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/Vistas/persona-r.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
         dispatcher.forward(request, response);
     }
 

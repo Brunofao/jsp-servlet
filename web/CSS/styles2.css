@@ -78,7 +78,19 @@ a:focus {
 
 #sidebar ul.components {
     padding: 20px 0;
-    /*border-bottom: 1px solid #47748b;*/
+    border-bottom: 1px solid #6d7fcc;
+}
+
+#sidebar ul li.ptt {
+    padding-top: 20px;
+}
+
+#sidebar ul h5 {
+    padding: 0px 0px 0px 10px;
+}
+
+#sidebar ul .lane {
+    border-bottom: 1px solid #6d7fcc;
 }
 
 #sidebar ul p {

@@ -27,6 +27,7 @@ import Models.Conexion;
 import Models.Persona;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
+import com.db4o.query.Query;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,9 +70,19 @@ public class PersonaDAO {
         return persona;
     }
     
+    public Persona findAPersonaByDNI(String dni) {
+        db = con.open();
+        Query query = db.query();
+        query.constrain(Persona.class);
+        query.descend(dni);
+        ObjectSet result = query.execute();
+        Persona persona = (Persona) result.next();
+        return persona;
+    }
+    
     public void clearDatabase() {
         db = con.open();
-        ObjectSet result=db.queryByExample(Persona.class);
+        ObjectSet result = db.queryByExample(Persona.class);
         while(result.hasNext()) {
             db.delete(result.next());
         }

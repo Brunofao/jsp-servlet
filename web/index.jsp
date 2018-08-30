@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
   </head>
   <body>
-      
+        <!-- /////////////////////// -->
         <!--
             <h1>Hello, are u there?</h1>
             <h2>Preparing to Git...</h2>
@@ -35,9 +35,31 @@
             <!-- call Nav-content -->
             <div id="content" class="">
                 <%@include file="Template/nav-content.jsp"%>
+                <table class="table table-bordered table-hover text-center table-responsive-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col">#DNI</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Apellido</th>
+                            <th scope="col">Teléfono</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <c:forEach var="persona" items="${lista}">
+                                <tr>
+                                    <td><c:out value="${persona.dni}"/></td>
+                                    <td><c:out value="${persona.name}"/></td>
+                                    <td><c:out value="${persona.lastname}"/></td>
+                                    <td><c:out value="${persona.phone}"/></td>				
+                                </tr>
+                            </c:forEach>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
-        
+        <!-- /////////////////////// -->
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

@@ -121,4 +121,10 @@ public class Mascota {
     public String toString() {
         return "Mascota{" + "persona=" + persona + ", id=" + id + ", name=" + name + ", species=" + species + ", weight=" + weight + ", sex=" + sex + ", age=" + age + ", race=" + race + '}';
     }
+    
+    public String generateID () {
+        String gid;
+        gid = this.persona.getLastname() + this.persona.getDni();
+        return null;
+    }
 }

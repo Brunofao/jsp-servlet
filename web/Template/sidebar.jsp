@@ -10,9 +10,9 @@
         <a class="h3" href="/">Peluditos Pet's</a>
     </div>
 
-    <ul class="list-unstyled components ptt2">
-        <h4>Bruno Faoro</h5>
-        <h4>Jesús Requena</h5>
+    <ul class="list-unstyled components">
+        <h4>Bruno Faoro</h4>
+        <h4>Jesús Requena</h4>
         <li class="active ptt">
             <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
             <ul class="collapse list-unstyled" id="homeSubmenu">

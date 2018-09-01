@@ -17,10 +17,10 @@
             <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
             <ul class="collapse list-unstyled" id="homeSubmenu">
                 <li>
-                    <a href="/persona">Menú 1</a>
+                    <a href="/persona">CRUD</a>
                 </li>
                 <li>
-                    <a href="/mascota">Menú 2</a>
+                    <a href="/mascota">CRUD Mascota</a>
                 </li>
             </ul>
         </li>

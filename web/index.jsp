@@ -33,30 +33,9 @@
             <!-- call Sidebar -->
             <%@include file="Template/sidebar.jsp"%>
             <!-- call Nav-content -->
-            <div id="content" class="">
+            <div id="content">
                 <%@include file="Template/nav-content.jsp"%>
-                <table class="table table-bordered table-hover text-center table-responsive-sm">
-                    <thead>
-                        <tr>
-                            <th scope="col">#DNI</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Apellido</th>
-                            <th scope="col">Teléfono</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <c:forEach var="persona" items="${lista}">
-                                <tr>
-                                    <td><c:out value="${persona.dni}"/></td>
-                                    <td><c:out value="${persona.name}"/></td>
-                                    <td><c:out value="${persona.lastname}"/></td>
-                                    <td><c:out value="${persona.phone}"/></td>				
-                                </tr>
-                            </c:forEach>
-                        </tr>
-                    </tbody>
-                </table>
+                <!-- write here -->
             </div>
         </div>
         <!-- /////////////////////// -->

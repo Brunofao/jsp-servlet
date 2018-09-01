@@ -77,6 +77,7 @@ public class PersonaDAO {
         query.descend(dni);
         ObjectSet result = query.execute();
         Persona persona = (Persona) result.next();
+        con.close(db);
         return persona;
     }
     

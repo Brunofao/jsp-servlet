@@ -98,7 +98,7 @@ public class PersonaC extends HttpServlet {
         System.out.println(pruebita.getName() + " " + "qué duro perro, buena función");
         
         request.setAttribute("lista", p2);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/Vistas/persona-r.jsp");
         dispatcher.forward(request, response);
     }
 

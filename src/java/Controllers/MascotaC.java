@@ -88,7 +88,11 @@ public class MascotaC extends HttpServlet {
         mdao.clearDatabase();
         Persona p = new Persona("25595819", "Bruno", "Faoro", "04249585812");
         Mascota m = new Mascota(p, "819faoro", "Clementina", "Perro", 35.4f, "Femenino", "2", "Bull Terrier Inglés");
-
+        
+        System.out.println("Viejo ID" + " " + m.getId());
+        m.setId(m.generateID());
+        System.out.println("Nuevo ID" + " " + m.getId());
+        
         mdao.add(m);
 
         List<Mascota> p2 = mdao.read();

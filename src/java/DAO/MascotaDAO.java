@@ -66,7 +66,7 @@ public class MascotaDAO {
     
     public void clearDatabase() {
         db = con.open();
-        ObjectSet result=db.queryByExample(Mascota.class);
+        ObjectSet result = db.queryByExample(Mascota.class);
         while(result.hasNext()) {
             db.delete(result.next());
         }

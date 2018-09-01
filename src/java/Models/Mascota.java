@@ -124,7 +124,7 @@ public class Mascota {
     
     public String generateID () {
         String gid;
-        gid = this.persona.getLastname() + this.persona.getDni();
-        return null;
+        gid = this.persona.getLastname().toLowerCase() + this.persona.getDni();
+        return gid;
     }
 }

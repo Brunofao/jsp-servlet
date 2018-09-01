@@ -35,7 +35,38 @@
             <!-- call Nav-content -->
             <div id="content">
                 <%@include file="/Template/nav-content.jsp"%>
+                
+                <%--
                 <c:out value="${mascotica.id}"/>
+                --%>
+                
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-default btn-outline-dark mb-3" data-toggle="modal" data-target="#exampleModal">
+                    <b>+</b> Añadir Bodega
+                </button>
+                
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel"></h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                ...
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Table -->
                 <table id="fix-table" class="table table-bordered table-hover text-center table-responsive-sm table-responsive-md">
                     <thead>
                         <tr>
@@ -43,6 +74,7 @@
                             <th scope="col">#ID</th>
                             <th scope="col">Nombre</th>
                             <th scope="col">Especie</th>
+                            <th scope="col">Opciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -52,7 +84,11 @@
                                     <td><c:out value="${mascota.persona.name} ${mascota.persona.lastname} (${mascota.persona.dni})"/></td>
                                     <td><c:out value="${mascota.id}"/></td>
                                     <td><c:out value="${mascota.name}"/></td>
-                                    <td><c:out value="${mascota.species}"/></td>				
+                                    <td><c:out value="${mascota.species}"/></td>
+                                    <td class="text-center">
+                                        <a class="btn btn-default btn-outline-dark" href="${pageContext.request.contextPath}/mascota?id=${mascota.id}">Editar</a>
+                                        <a class="btn btn-default btn-outline-dark" href="">Borrar</a> 
+                                    </td>
                                 </tr>
                             </c:forEach>
                         </tr>
@@ -60,6 +96,14 @@
                 </table>
             </div>
         </div>
+                
+        <!--   
+            <c:forEach var="mascotica" items="${mascota}">
+                <tr>
+                    <td><c:out value="${mascotica}"/></td>		
+                </tr>
+            </c:forEach>
+        -->
         <!-- /////////////////////// -->
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

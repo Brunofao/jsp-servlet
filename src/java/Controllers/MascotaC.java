@@ -117,6 +117,8 @@ public class MascotaC extends HttpServlet {
         if (id != null && !id.isEmpty()) {
             Mascota mascota = mdao.findAMascotaByID(id);
             request.setAttribute("mascotica", mascota);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/Vistas/mascota-c.jsp");
+            //  dispatcher.forward(request, response);
             //  System.out.println("Entró en la nueva función -> mdao.findAMascotaByID(id);");
         }
         

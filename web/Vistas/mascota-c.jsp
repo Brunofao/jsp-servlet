@@ -8,6 +8,7 @@
 <%@page import="java.util.List"%>
 <%@page import="Models.Persona"%>
 <%@page import="DAO.PersonaDAO"%>
+
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 
 <!DOCTYPE html>
@@ -30,32 +31,7 @@
           <h2>Preparing to Git...</h2>
           <h3>Hi, im index.jsp</h3>
         -->
-        
-        <!--
-            <table class="table">
-                <thead>
-                  <tr>
-                    <th scope="col">#DNI</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Apellido</th>
-                    <th scope="col">Teléfono</th>
-                  </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <c:forEach var="persona" items="${lista}">
-                            <tr>
-                                <td><c:out value="${persona.dni}"/></td>
-                                <td><c:out value="${persona.name}"/></td>
-                                <td><c:out value="${persona.lastname}"/></td>
-                                <td><c:out value="${persona.phone}"/></td>				
-                            </tr>
-                        </c:forEach>
-                    </tr>
-                </tbody>
-            </table>
-        -->
-        
+                
         <%
             PersonaDAO pdao = new PersonaDAO();
             List<Persona> p = pdao.read();
@@ -77,10 +53,10 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control form-control-lg" id="name" name="name" placeholder="Nombre">
+                                <input type="text" class="form-control form-control-lg" id="name" name="name" placeholder="Nombre" value="<c:out value="${mascotica.name}"/>"/>
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control form-control-lg" id="species" name="species" placeholder="Especie">
+                                <input type="text" class="form-control form-control-lg" id="species" name="species" placeholder="Especie" value="<c:out value="${mascotica.species}"/>"/>
                             </div>
                             <button type="submit" class="btn btn-outline-success btn-lg btn-block">Agregar mascota</button>
                             <button type="submit" class="btn btn-outline-danger btn-lg btn-block">Cancelar</button>
@@ -90,13 +66,13 @@
             </div>
         </section>
                                 
-        <!--                     
+        <%--                     
             <c:forEach var="persona" items="${persona}">
                 <tr>
                     <td><c:out value="${persona.name}"/></td>		
                 </tr>
             </c:forEach>
-        -->
+        --%>
         
         <!-- /////////////////////// -->
         <!-- Optional JavaScript -->

@@ -64,6 +64,25 @@ public class MascotaDAO {
         return p;
     }
     
+    public Mascota findAMascota(Mascota m) {        
+        db = con.open();
+        ObjectSet result = db.queryByExample(m);
+        Mascota Mascota = (Mascota) result.next();
+        con.close(db);
+        return Mascota;
+    }
+    
+    public Mascota findAMascotaByID(String id) {
+        db = con.open();
+        Query query = db.query();
+        query.constrain(Mascota.class);
+        query.descend(id);
+        ObjectSet result = query.execute();
+        Mascota Mascota = (Mascota) result.next();
+        con.close(db);
+        return Mascota;
+    }
+    
     public void clearDatabase() {
         db = con.open();
         ObjectSet result = db.queryByExample(Mascota.class);

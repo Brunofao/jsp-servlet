@@ -7,7 +7,9 @@
 <!-- Sidebar  -->
 <nav id="sidebar">
     <div class="sidebar-header">
-        <a class="h3" href="/">Peluditos Pet's</a>
+        <a class="h3" href="/">
+            <img class="img-fluid img-thumbnail" src="Assets/logo.png" />
+        </a>
     </div>
 
     <ul class="list-unstyled components">

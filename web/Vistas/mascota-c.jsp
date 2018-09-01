@@ -59,6 +59,7 @@
         <%
             PersonaDAO pdao = new PersonaDAO();
             List<Persona> p = pdao.read();
+            //  request.setAttribute("persona", p);
         %>
         
         <section id="form-bootstrap">

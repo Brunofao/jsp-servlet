@@ -89,19 +89,36 @@ public class MascotaC extends HttpServlet {
         Persona p = new Persona("25595819", "Bruno", "Faoro", "04249585812");
         Mascota m = new Mascota(p, "819faoro", "Clementina", "Perro", 35.4f, "Femenino", "2", "Bull Terrier Inglés");
         
-        System.out.println("Viejo ID" + " " + m.getId());
-        m.setId(m.generateID());
-        System.out.println("Nuevo ID" + " " + m.getId());
+        /*
+            System.out.println("Viejo ID" + " " + m.getId());
+            m.setId(m.generateID());
+            System.out.println("Nuevo ID" + " " + m.getId());
+        */
         
         mdao.add(m);
-
+        
+        /*
+            Mascota pruebita = mdao.findAMascotaByID(m.getId());
+            System.out.println(pruebita.getName());
+        */
+        
         List<Mascota> p2 = mdao.read();
-
-        p2.forEach((lp0) -> {
-            System.out.println(lp0);
-        });
-
+        
+        /*
+            p2.forEach((lp0) -> {
+                System.out.println(lp0);
+            });
+        */
+        
         request.setAttribute("lista", p2);
+        
+        String id = request.getParameter("id");
+        
+        if (id != null && !id.isEmpty()) {
+            Mascota mascota = mdao.findAMascotaByID(id);
+            request.setAttribute("mascotica", mascota);
+            //  System.out.println("Entró en la nueva función -> mdao.findAMascotaByID(id);");
+        }
         
         RequestDispatcher dispatcher = request.getRequestDispatcher("/Vistas/mascota-r.jsp");
         dispatcher.forward(request, response);

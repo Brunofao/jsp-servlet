@@ -35,6 +35,7 @@
             <!-- call Nav-content -->
             <div id="content">
                 <%@include file="/Template/nav-content.jsp"%>
+                <c:out value="${mascotica.id}"/>
                 <table id="fix-table" class="table table-bordered table-hover text-center table-responsive-sm table-responsive-md">
                     <thead>
                         <tr>

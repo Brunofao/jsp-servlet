@@ -85,9 +85,10 @@ public class MascotaC extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        mdao.clearDatabase();
-        Persona p = new Persona("25595819", "Bruno", "Faoro", "04249585812");
-        Mascota m = new Mascota(p, "819faoro", "Clementina", "Perro", 35.4f, "Femenino", "2", "Bull Terrier Inglés");
+        //  mdao.clearDatabase();
+        //  pdao.clearDatabase();
+        //  Persona p = new Persona("25595819", "Bruno", "Faoro", "04249585812");
+        //  Mascota m = new Mascota(p, "819faoro", "Clementina", "Perro", 35.4f, "Femenino", "2", "Bull Terrier Inglés");
         
         /*
             System.out.println("Viejo ID" + " " + m.getId());
@@ -95,7 +96,7 @@ public class MascotaC extends HttpServlet {
             System.out.println("Nuevo ID" + " " + m.getId());
         */
         
-        mdao.add(m);
+        //  mdao.add(m);
         
         /*
             Mascota pruebita = mdao.findAMascotaByID(m.getId());
@@ -117,7 +118,7 @@ public class MascotaC extends HttpServlet {
         if (id != null && !id.isEmpty()) {
             Mascota mascota = mdao.findAMascotaByID(id);
             request.setAttribute("mascotica", mascota);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/Vistas/mascota-c.jsp");
+            //  RequestDispatcher dispatcher = request.getRequestDispatcher("/Vistas/mascota-c.jsp");
             //  dispatcher.forward(request, response);
             //  System.out.println("Entró en la nueva función -> mdao.findAMascotaByID(id);");
         }
@@ -137,7 +138,7 @@ public class MascotaC extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/Vistas/mascota-c.jsp");
+        //  RequestDispatcher dispatcher = request.getRequestDispatcher("/Vistas/mascota-c.jsp");
         
         String dni = request.getParameter("dni");
         String name = request.getParameter("name");
@@ -161,7 +162,9 @@ public class MascotaC extends HttpServlet {
         
         mdao.add(m);
         
-        dispatcher.forward(request, response);
+        response.sendRedirect("/mascota");
+        
+        //  dispatcher.forward(request, response);
     }
 
     /**

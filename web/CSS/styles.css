@@ -47,6 +47,10 @@ THE SOFTWARE.
     border-radius: .3em;
 }
 
+.no-border {
+    border: none;
+}
+
 .form-control-lg, .btn {
     font-size: 1em;
 }

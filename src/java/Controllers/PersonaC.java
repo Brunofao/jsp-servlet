@@ -82,11 +82,11 @@ public class PersonaC extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        pdao.clearDatabase();
-        Persona p = new Persona("25595819", "Bruno", "Faoro", "04249585812");
-        Persona p1 = new Persona("00000000", "Bruno", "Tranquini", "00000000000");
-        pdao.add(p);
-        pdao.add(p1);
+        //  pdao.clearDatabase();
+        //  Persona p = new Persona("25595819", "Bruno", "Faoro", "04249585812");
+        //  Persona p1 = new Persona("00000000", "Bruno", "Tranquini", "00000000000");
+        //  pdao.add(p);
+        //  pdao.add(p1);
         
         List<Persona> p2 = pdao.read();
         
@@ -94,8 +94,8 @@ public class PersonaC extends HttpServlet {
             System.out.println(lp0);
         });
         
-        Persona pruebita = pdao.findAPersonaByDNI(p.getDni());
-        System.out.println(pruebita.getName() + " " + "qué duro perro, buena función");
+        //  Persona pruebita = pdao.findAPersonaByDNI(p.getDni());
+        //  System.out.println(pruebita.getName() + " " + "qué duro perro, buena función");
         
         request.setAttribute("lista", p2);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/Vistas/persona-r.jsp");

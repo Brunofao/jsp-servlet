@@ -37,34 +37,15 @@
                 <%@include file="/Template/nav-content.jsp"%>
                 
                 <%--
-                <c:out value="${mascotica.id}"/>
+                    <c:out value="${mascotica.id}"/>
                 --%>
                 
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-default btn-outline-dark mb-3" data-toggle="modal" data-target="#exampleModal">
-                    <b>+</b> Añadir Bodega
+                    <b>+</b> Añadir Mascota
                 </button>
                 
-                <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel"></h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                  <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                ...
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <%@include file="modal-cu.jsp"%>
                 
                 <!-- Table -->
                 <table id="fix-table" class="table table-bordered table-hover text-center table-responsive-sm table-responsive-md">
@@ -96,14 +77,14 @@
                 </table>
             </div>
         </div>
-                
-        <!--   
+        
+        <%--   
             <c:forEach var="mascotica" items="${mascota}">
                 <tr>
                     <td><c:out value="${mascotica}"/></td>		
                 </tr>
             </c:forEach>
-        -->
+        --%>
         <!-- /////////////////////// -->
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -127,6 +108,13 @@
                 $('.collapse.in').toggleClass('in');
                 $('a[aria-expanded=true]').attr('aria-expanded', 'false');
             });
+            
+            /*
+                $('#modal-edit').on('click', function () {
+                    $(this).attr('data-toggle', "modal");
+                    $(this).attr('data-target', "#exampleModal");
+                });
+            */
         });
     </script>
   </body>

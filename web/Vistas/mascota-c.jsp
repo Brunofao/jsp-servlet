@@ -27,9 +27,9 @@
         <!-- /////////////////////// -->
 
         <!--
-          <h1>Hello, are u there?</h1>
-          <h2>Preparing to Git...</h2>
-          <h3>Hi, im index.jsp</h3>
+            <h1>Hello, are u there?</h1>
+            <h2>Preparing to Git...</h2>
+            <h3>Hi, im index.jsp</h3>
         -->
                 
         <%

@@ -45,23 +45,23 @@ public class MascotaDAO {
         con = new Conexion();
     }
     
-    public void add(Mascota p) {
+    public void add(Mascota m) {
         db = con.open();
-        db.store(p);
+        db.store(m);
         con.close(db);
     }
     
     public List<Mascota> read() {        
         db = con.open();
-        List<Mascota> p = new ArrayList<>();
+        List<Mascota> m = new ArrayList<>();
         Query query = db.query();
         query.constrain(Mascota.class);
-        ObjectSet listP = query.execute();
-        listP.forEach((listP0) -> {
-            p.add((Mascota)listP0);
+        ObjectSet listM = query.execute();
+        listM.forEach((listM0) -> {
+            m.add((Mascota)listM0);
         });
         con.close(db);
-        return p;
+        return m;
     }
     
     public Mascota findAMascota(Mascota m) {        

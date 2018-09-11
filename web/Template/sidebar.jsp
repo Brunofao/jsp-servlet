@@ -42,5 +42,13 @@
                 </li>
             </ul>
         </li>
+        <li>
+            <a href="#menu3" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">SPA</a>
+            <ul class="collapse list-unstyled" id="menu3">
+                <li>
+                    <a href="/veterinario">CRUD SPA</a>
+                </li>
+            </ul>
+        </li>
     </ul>
 </nav>

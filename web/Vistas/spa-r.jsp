@@ -41,7 +41,7 @@
                 --%>
                 
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-default btn-outline-dark mb-3" data-toggle="modal" data-target="#exampleModal">
+                <button type="button" class="btn btn-default btn-outline-purple mb-3" data-toggle="modal" data-target="#exampleModal">
                     <b>+</b> Añadir SPA
                 </button>
                 
@@ -67,8 +67,8 @@
                                     <td><c:out value="${spa.estilista.name} ${spa.estilista.lastname} (${spa.estilista.dni})"/></td>
                                     <td><c:out value="${spa.estilista.reference}"/></td>
                                     <td class="text-center">
-                                        <a class="btn btn-default btn-outline-dark" href="${pageContext.request.contextPath}/mascota?id=${mascota.id}">Editar</a>
-                                        <a class="btn btn-default btn-outline-dark" href="">Borrar</a> 
+                                        <a class="btn btn-default btn-outline-purple" href="${pageContext.request.contextPath}/mascota?id=${mascota.id}">Editar</a>
+                                        <a class="btn btn-default btn-outline-purple" href="">Borrar</a> 
                                     </td>
                                 </tr>
                             </c:forEach>

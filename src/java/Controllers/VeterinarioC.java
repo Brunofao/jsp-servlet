@@ -23,10 +23,9 @@
  */
 package Controllers;
 
-import DAO.MascotaDAO;
 import DAO.PersonaDAO;
-import Models.Mascota;
-import Models.Persona;
+import DAO.VeterinarioDAO;
+import Models.Veterinario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -41,11 +40,11 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author John Wick Recargado
  */
-@WebServlet(name = "MascotaC", urlPatterns = {"/mascota"})
-public class MascotaC extends HttpServlet {
+@WebServlet(name = "VeterinarioC", urlPatterns = {"/veterinario"})
+public class VeterinarioC extends HttpServlet {
     //
-    PersonaDAO pdao = new PersonaDAO();
-    MascotaDAO mdao = new MascotaDAO();
+    private final VeterinarioDAO vdao = new VeterinarioDAO();
+    private final PersonaDAO pdao = new PersonaDAO();
     //
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -64,10 +63,10 @@ public class MascotaC extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet MascotaC</title>");            
+            out.println("<title>Servlet VeterinarioC</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet MascotaC at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet VeterinarioC at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -85,44 +84,24 @@ public class MascotaC extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //  mdao.clearDatabase();
-        //  pdao.clearDatabase();
-        //  Persona p = new Persona("25595819", "Bruno", "Faoro", "04249585812");
-        //  Mascota m = new Mascota(p, "819faoro", "Clementina", "Perro", 35.4f, "Femenino", "2", "Bull Terrier Inglés");
+        vdao.clearDatabase();
         
-        /*
-            System.out.println("Viejo ID" + " " + m.getId());
-            m.setId(m.generateID());
-            System.out.println("Nuevo ID" + " " + m.getId());
-        */
+        //  String dni, String name, String lastname, String phone, String reference, String specialist
+        Veterinario v = new Veterinario("00000001", "Rafael", "Varela", "00000000001", "10000000", "Perros");
+        vdao.add(v);
         
-        //  mdao.add(m);
-        
-        /*
-            Mascota pruebita = mdao.findAMascotaByID(m.getId());
-            System.out.println(pruebita.getName());
-        */
-        
-        List<Mascota> p2 = mdao.read();
-        
-        p2.forEach((lp0) -> {
-            System.out.println(lp0);
+        List<Veterinario> lv = vdao.read();
+       
+        lv.forEach((lv0) -> {
+            System.out.println(lv0);
         });
         
+        //  Veterinario b = vdao.findAVeterinarioByDNI(v.getDni());
+        //  System.out.println(b.getName());
         
-        request.setAttribute("lista", p2);
+        request.setAttribute("lista", lv);
         
-        String id = request.getParameter("id");
-        
-        if (id != null && !id.isEmpty()) {
-            Mascota mascota = mdao.findAMascotaByID(id);
-            request.setAttribute("mascotica", mascota);
-            //  RequestDispatcher dispatcher = request.getRequestDispatcher("/Vistas/mascota-c.jsp");
-            //  dispatcher.forward(request, response);
-            //  System.out.println("Entró en la nueva función -> mdao.findAMascotaByID(id);");
-        }
-        
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/Vistas/mascota-r.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/Vistas/veterinario-r.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -137,33 +116,6 @@ public class MascotaC extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //  RequestDispatcher dispatcher = request.getRequestDispatcher("/Vistas/mascota-c.jsp");
-        
-        String dni = request.getParameter("dni");
-        String name = request.getParameter("name");
-        String species = request.getParameter("species");
-        
-        Persona aux = new Persona();
-        Mascota m = new Mascota();
-        
-        System.out.println(dni);
-        aux.setDni(dni);
-        
-        aux = pdao.findAPerson(aux);
-        System.out.println(aux.getLastname());
-        
-        Persona p = aux;
-        System.out.println(p.getDni());
-        
-        m.setPersona(p);
-        m.setName(name);
-        m.setSpecies(species);
-        
-        mdao.add(m);
-        
-        response.sendRedirect("/mascota");
-        
-        //  dispatcher.forward(request, response);
     }
 
     /**

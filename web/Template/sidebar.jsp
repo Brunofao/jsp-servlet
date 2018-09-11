@@ -16,42 +16,31 @@
         <h4>Bruno Faoro</h4>
         <h4>Jesús Requena</h4>
         <li class="active ptt">
-            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
-            <ul class="collapse list-unstyled" id="homeSubmenu">
+            <a href="#menu0" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Persona</a>
+            <ul class="collapse list-unstyled" id="menu0">
                 <li>
-                    <a href="/persona">CRUD</a>
+                    <a href="/persona">CRUD Persona</a>
                 </li>
+            </ul>
+        </li>
+        <li>
+            <a href="#menu1" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Mascota</a>
+            <ul class="collapse list-unstyled" id="menu1">
                 <li>
                     <a href="/mascota">CRUD Mascota</a>
                 </li>
             </ul>
         </li>
-        <!--
-            <li>
-                <a href="#">About</a>
-            </li>
-        -->
         <li>
-            <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
-            <ul class="collapse list-unstyled" id="pageSubmenu">
+            <a href="#menu2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Trabajadores</a>
+            <ul class="collapse list-unstyled" id="menu2">
                 <li>
-                    <a href="#">Page 1</a>
+                    <a href="/veterinario">CRUD Veterinario</a>
                 </li>
                 <li>
-                    <a href="#">Page 2</a>
-                </li>
-                <li>
-                    <a href="#">Page 3</a>
+                    <a href="/estilista">CRUD Estilista</a>
                 </li>
             </ul>
         </li>
-        <!--
-            <li>
-                <a href="#">Portfolio</a>
-            </li>
-            <li>
-                <a href="#">Contact</a>
-            </li>
-        -->
     </ul>
 </nav>

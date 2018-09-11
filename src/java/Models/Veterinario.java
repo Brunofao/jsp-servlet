@@ -23,39 +23,45 @@
  */
 package Models;
 
-import com.db4o.Db4oEmbedded;
-import com.db4o.ObjectContainer;
-import com.db4o.ext.DatabaseFileLockedException;
-import com.db4o.ext.DatabaseReadOnlyException;
-import com.db4o.ext.Db4oIOException;
-import com.db4o.ext.IncompatibleFileFormatException;
-import com.db4o.ext.OldFormatException;
-
 /**
  *
  * @author John Wick Recargado
  */
-public class Conexion {
+public class Veterinario extends Persona {
     //
-    private final String name = "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o";
-    ObjectContainer db = null;
+    private String reference;
+    private String specialist;
     //
 
-    public Conexion() {
+    public Veterinario() {
+        super();
     }
-    
-    public ObjectContainer open() {
-        try {
-            return db = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), name);
-        } catch(DatabaseFileLockedException | DatabaseReadOnlyException | Db4oIOException | IncompatibleFileFormatException | OldFormatException e) {
-            System.out.println("Problems in -> Conexion <-");
-            db.close();
-        } 
-        
-        return db;
+
+    public Veterinario(String dni, String name, String lastname, String phone, String reference, String specialist) {
+        super(dni, name, lastname, phone);
+        this.reference = reference;
+        this.specialist = specialist;
     }
-    
-    public void close(ObjectContainer c) {
-        c.close();
+
+    public String getReference() {
+        return reference;
+    }
+
+    public String getSpecialist() {
+        return specialist;
+    }
+
+    public void setReference(String reference) {
+        this.reference = reference;
+    }
+
+    public void setSpecialist(String specialist) {
+        this.specialist = specialist;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + ", " + "Veterinario{" + "reference=" + reference + ", specialist=" + specialist + '}';
     }
 }
+

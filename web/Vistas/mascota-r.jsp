@@ -33,7 +33,7 @@
             <!-- call Sidebar -->
             <%@include file="/Template/sidebar.jsp"%>
             <!-- call Nav-content -->
-            <div id="content">
+            <div id="content">      
                 <%@include file="/Template/nav-content.jsp"%>
                 
                 <%--

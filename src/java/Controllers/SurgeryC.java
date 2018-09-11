@@ -23,8 +23,17 @@
  */
 package Controllers;
 
+import DAO.MascotaDAO;
+import DAO.SurgeryDAO;
+import DAO.VeterinarioDAO;
+import Models.Mascota;
+import Models.RoomSPA;
+import Models.RoomSurgery;
+import Models.Veterinario;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -37,7 +46,11 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "SurgeryC", urlPatterns = {"/surgery"})
 public class SurgeryC extends HttpServlet {
-
+    //
+    SurgeryDAO sdao = new SurgeryDAO();
+    MascotaDAO mdao = new MascotaDAO();
+    VeterinarioDAO vdao = new VeterinarioDAO();
+    //
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -76,7 +89,29 @@ public class SurgeryC extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        sdao.clearDatabase();
+        
+        RoomSurgery roomsurgery = new RoomSurgery();
+        Mascota mascota = mdao.findAMascotaByID("819faoro");
+        Veterinario veterinario = vdao.findAVeterinarioByDNI("00000000");
+        roomsurgery.setId("surgery#" + mascota.getId());
+        roomsurgery.setVeterinario(veterinario);
+        roomsurgery.setMascota(mascota);
+        
+        sdao.add(roomsurgery);
+        
+        List<RoomSurgery> spa2 = sdao.read();
+        
+        spa2.forEach((spa0) -> {
+            System.out.println(spa0);
+        });
+        
+        request.setAttribute("lista", spa2);
+        
+        //  response.sendRedirect("/spa");
+        
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/Vistas/surgery-r.jsp");
+        dispatcher.forward(request, response);
     }
 
     /**

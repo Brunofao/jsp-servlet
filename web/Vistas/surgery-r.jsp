@@ -1,6 +1,6 @@
 <%-- 
-    Document   : spa-r
-    Created on : 11/09/2018, 11:22:13 AM
+    Document   : surgery-r
+    Created on : 11/09/2018, 04:11:32 PM
     Author     : John Wick Recargado
 --%>
 
@@ -42,10 +42,10 @@
                 
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-default btn-outline-purple mb-3" data-toggle="modal" data-target="#exampleModal">
-                    <b>+</b> Añadir SPA
+                    <b>+</b> Añadir Cirugía
                 </button>
                 
-                <%@include file="modal-spa-cu.jsp"%>
+                <%@include file="modal-veterinario-cu.jsp"%>
                 
                 <!-- Table -->
                 <table id="fix-table" class="table table-bordered table-hover text-center table-responsive-sm table-responsive-md">
@@ -60,12 +60,12 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <c:forEach var="spa" items="${lista}">
+                            <c:forEach var="surgery" items="${lista}">
                                 <tr>
-                                    <td><c:out value="${spa.id}"/></td>
-                                    <td><c:out value="${spa.mascota.name} (${spa.mascota.persona.name} ${spa.mascota.persona.lastname} ${spa.mascota.persona.dni})"/></td>
-                                    <td><c:out value="${spa.estilista.name} ${spa.estilista.lastname} (${spa.estilista.dni})"/></td>
-                                    <td><c:out value="${spa.estilista.reference}"/></td>
+                                    <td><c:out value="${surgery.id}"/></td>
+                                    <td><c:out value="${surgery.mascota.name} (${surgery.mascota.persona.name} ${surgery.mascota.persona.lastname} ${surgery.mascota.persona.dni})"/></td>
+                                    <td><c:out value="${surgery.veterinario.name} ${surgery.veterinario.lastname} (${surgery.veterinario.dni})"/></td>
+                                    <td><c:out value="${surgery.veterinario.reference}"/></td>
                                     <td class="text-center">
                                         <a class="btn btn-default btn-outline-purple" href="${pageContext.request.contextPath}/mascota?id=${mascota.id}">Editar</a>
                                         <a class="btn btn-default btn-outline-purple" href="">Borrar</a> 

@@ -9,7 +9,7 @@
 
         <button type="button" id="sidebarCollapse" class="btn btn-info">
             <i class="fas fa-align-left"></i>
-            <span>Toggle Sidebar</span>
+            <span>Ocultar Sidebar</span>
         </button>
         
         <h3>Peluditos Pet's</h3>

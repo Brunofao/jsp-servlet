@@ -23,10 +23,71 @@
  */
 package DAO;
 
+import Models.Conexion;
+import Models.RoomSPA;
+import Models.RoomSurgery;
+import com.db4o.ObjectContainer;
+import com.db4o.ObjectSet;
+import com.db4o.query.Query;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author John Wick Recargado
  */
 public class SurgeryDAO {
+    //
+    Conexion con;
+    ObjectContainer db = null;
+    //
     
+    public SurgeryDAO() {
+        con = new Conexion();
+    }
+    
+    public void add(RoomSurgery s) {
+        db = con.open();
+        db.store(s);
+        con.close(db);
+    }
+    
+    public List<RoomSurgery> read() {
+        db = con.open();
+        List<RoomSurgery> s = new ArrayList<>();
+        ObjectSet listS = db.queryByExample(RoomSurgery.class);
+        listS.forEach((listS0) -> {
+            s.add((RoomSurgery)listS0);
+        });
+        con.close(db);
+        return s;
+    }
+    
+    public RoomSurgery findARoomSurgery(RoomSurgery s) {        
+        db = con.open();
+        ObjectSet result = db.queryByExample(s);
+        RoomSurgery roomsurgery = (RoomSurgery) result.next();
+        con.close(db);
+        return roomsurgery;
+    }
+    
+    public RoomSurgery findARoomSurgeryByID(String id) {
+        db = con.open();
+        Query query = db.query();
+        query.constrain(RoomSurgery.class);
+        query.descend(id);
+        ObjectSet result = query.execute();
+        RoomSurgery roomsurgery = (RoomSurgery) result.next();
+        con.close(db);
+        return roomsurgery;
+    }
+    
+    public void clearDatabase() {
+        db = con.open();
+        ObjectSet result = db.queryByExample(RoomSurgery.class);
+        while(result.hasNext()) {
+            db.delete(result.next());
+        }
+        con.close(db);
+    }
 }

@@ -15,7 +15,7 @@
     <ul class="list-unstyled components">
         <h4>Bruno Faoro</h4>
         <h4>Jesús Requena</h4>
-        <li class="active ptt">
+        <li class="ptt">
             <a href="#menu0" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Persona</a>
             <ul class="collapse list-unstyled" id="menu0">
                 <li>
@@ -47,6 +47,14 @@
             <ul class="collapse list-unstyled" id="menu3">
                 <li>
                     <a href="/spa">CRUD SPA</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="#menu4" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Cirugías</a>
+            <ul class="collapse list-unstyled" id="menu4">
+                <li>
+                    <a href="/surgery">CRUD Cirugías</a>
                 </li>
             </ul>
         </li>

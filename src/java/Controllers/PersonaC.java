@@ -88,6 +88,17 @@ public class PersonaC extends HttpServlet {
         //  pdao.add(p);
         //  pdao.add(p1);
         
+        /*  
+            //  Prueba
+            Persona prueba = new Persona();
+            prueba.setDni("25595819");
+            prueba.setName("Bruno");
+            prueba.setLastname("Faoro");
+            prueba.setPhone("04249585812");
+
+            pdao.add(prueba);
+        */
+        
         List<Persona> p2 = pdao.read();
         
         p2.forEach((lp0) -> {

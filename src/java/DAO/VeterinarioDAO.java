@@ -66,9 +66,9 @@ public class VeterinarioDAO {
     public Persona findAVeterinario(Veterinario v) {        
         db = con.open();
         ObjectSet result = db.queryByExample(v);
-        Veterinario Veterinario = (Veterinario) result.next();
+        Veterinario veterinario = (Veterinario) result.next();
         con.close(db);
-        return Veterinario;
+        return veterinario;
     }
     
     public Veterinario findAVeterinarioByDNI(String dni) {
@@ -77,9 +77,9 @@ public class VeterinarioDAO {
         query.constrain(Veterinario.class);
         query.descend(dni);
         ObjectSet result = query.execute();
-        Veterinario Veterinario = (Veterinario) result.next();
+        Veterinario veterinario = (Veterinario) result.next();
         con.close(db);
-        return Veterinario;
+        return veterinario;
     }
     
     public void clearDatabase() {

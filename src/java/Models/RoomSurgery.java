@@ -29,6 +29,7 @@ package Models;
  */
 public class RoomSurgery {
     //
+    private String id;
     private Mascota mascota;
     private Veterinario veterinario;
     //
@@ -36,9 +37,14 @@ public class RoomSurgery {
     public RoomSurgery() {
     }
 
-    public RoomSurgery(Mascota mascota, Veterinario veterinario) {
+    public RoomSurgery(String id, Mascota mascota, Veterinario veterinario) {
+        this.id = id;
         this.mascota = mascota;
         this.veterinario = veterinario;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public Mascota getMascota() {
@@ -47,6 +53,10 @@ public class RoomSurgery {
 
     public Veterinario getVeterinario() {
         return veterinario;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public void setMascota(Mascota mascota) {
@@ -59,6 +69,6 @@ public class RoomSurgery {
 
     @Override
     public String toString() {
-        return "RoomSurgery{" + "mascota=" + mascota + ", veterinario=" + veterinario + '}';
+        return "RoomSurgery{" + "id=" + id + ", mascota=" + mascota + ", veterinario=" + veterinario + '}';
     }
 }

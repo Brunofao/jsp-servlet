@@ -25,7 +25,9 @@ package Controllers;
 
 import DAO.EstilistaDAO;
 import DAO.MascotaDAO;
+import DAO.PersonaDAO;
 import DAO.SpaDAO;
+import DAO.SurgeryDAO;
 import Models.Estilista;
 import Models.Mascota;
 import Models.RoomSPA;
@@ -46,9 +48,11 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "SpaC", urlPatterns = {"/spa"})
 public class SpaC extends HttpServlet {
     //
+    PersonaDAO pdao = new PersonaDAO();
+    SurgeryDAO sdao = new SurgeryDAO();
     SpaDAO spadao = new SpaDAO();
-    EstilistaDAO edao = new EstilistaDAO();
     MascotaDAO mdao = new MascotaDAO();
+    EstilistaDAO edao = new EstilistaDAO();
     //
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -88,18 +92,28 @@ public class SpaC extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        spadao.clearDatabase();
-        RoomSPA roomspa = new RoomSPA();
+        //  spadao.clearDatabase();
+        //  RoomSPA roomspa = new RoomSPA();
         //  Estilista estilista = new Estilista();
         //  Mascota mascota = new Mascota();
         
-        Estilista estilista = edao.findAEstilistByDNI("00000002");
-        Mascota mascota = mdao.findAMascotaByID("819faoro");
-        roomspa.setId("spa#" + mascota.getId());
-        roomspa.setEstilista(estilista);
-        roomspa.setMascota(mascota);
+        /*
+            Mascota mascota = mdao.findAMascotaByID("819faoro");
+            Estilista estilista = edao.findAEstilistByDNI("00000002");
+            roomspa.setId("spa#" + mascota.getId());
+            roomspa.setEstilista(estilista);
+            roomspa.setMascota(mascota);
+
+            spadao.add(roomspa);
+        */
         
-        spadao.add(roomspa);
+        /*
+            pdao.clearDatabase();
+            sdao.clearDatabase();
+            spadao.clearDatabase();
+            mdao.clearDatabase();
+            edao.clearDatabase();
+        */
         
         List<RoomSPA> spa2 = spadao.read();
         
@@ -126,7 +140,20 @@ public class SpaC extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        //
+        String dni = request.getParameter("dni");
+        String id = request.getParameter("id");
+        
+        RoomSPA roomspa = new RoomSPA();
+        Estilista e = edao.findAEstilistByDNI(dni);
+        Mascota m = mdao.findAMascotaByID(id);
+        
+        roomspa.setEstilista(e);
+        roomspa.setMascota(m);
+        
+        spadao.add(roomspa);
+        
+        response.sendRedirect("/spa");
     }
 
     /**

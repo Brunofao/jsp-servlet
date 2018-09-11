@@ -68,6 +68,20 @@ select.form-control-lg:not([size]):not([multiple]) {
 
 .btn-outline-purple:hover {
     color: #fff;
-    background-color: #7386D5;
     border-color: #7386D5;
+}
+
+::-webkit-scrollbar {
+    width: .5em;
+    height: .2em;
+    background-color: #f9f9f9;
+}
+
+
+::-webkit-scrollbar-track {
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1); 
+}
+
+::-webkit-scrollbar-thumb {
+    background: #7386D5; 
 }

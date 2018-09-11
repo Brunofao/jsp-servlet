@@ -25,6 +25,8 @@ package Controllers;
 
 import DAO.EstilistaDAO;
 import Models.Estilista;
+import com.db4o.Db4oEmbedded;
+import com.db4o.ObjectContainer;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -82,7 +84,7 @@ public class EstilistaC extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        edao.clearDatabase();
+        //  edao.clearDatabase();
         
         //  String dni, String name, String lastname, String phone, String reference, String specialist
         Estilista e = new Estilista("00000002", "Antonio", "Campos", "00000000002", "20000000", "Perros");
@@ -111,6 +113,36 @@ public class EstilistaC extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String dni = request.getParameter("dni");
+        String name = request.getParameter("name");
+        String lastname = request.getParameter("lastname");
+        String phone = request.getParameter("phone");
+        String reference = request.getParameter("reference");
+        String specialist = request.getParameter("specialist");
+        
+        Estilista est = new Estilista();
+        
+        est.setDni(dni);
+        est.setName(name);
+        est.setLastname(lastname);
+        est.setPhone(phone);
+        est.setReference(reference);
+        est.setSpecialist(specialist);
+        
+        System.out.println("Set attributes completed" + " " + est.getName());
+        
+        //  AccessDB4O
+        ObjectContainer db = Db4oEmbedded.openFile(Db4oEmbedded
+                .newConfiguration(), "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o");
+        try {
+            // Do something with db4o
+            System.out.println("Opening the Database");
+            db.store(est);
+        } finally {
+            db.close();
+            System.out.println("Closing the Database");
+            response.sendRedirect("/estilista");
+        }
     }
 
     /**

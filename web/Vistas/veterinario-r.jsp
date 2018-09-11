@@ -45,7 +45,7 @@
                     <b>+</b> Añadir Veterinario
                 </button>
                 
-                <%@include file="modal-cu.jsp"%>
+                <%@include file="modal-veterinario-cu.jsp"%>
                 
                 <!-- Table -->
                 <table id="fix-table" class="table table-bordered table-hover text-center table-responsive-sm table-responsive-md">

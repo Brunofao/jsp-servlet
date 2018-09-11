@@ -26,6 +26,8 @@ package Controllers;
 import DAO.PersonaDAO;
 import DAO.VeterinarioDAO;
 import Models.Veterinario;
+import com.db4o.Db4oEmbedded;
+import com.db4o.ObjectContainer;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -84,11 +86,17 @@ public class VeterinarioC extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        vdao.clearDatabase();
+        //  vdao.clearDatabase();
         
         //  String dni, String name, String lastname, String phone, String reference, String specialist
-        Veterinario v = new Veterinario("00000001", "Rafael", "Varela", "00000000001", "10000000", "Perros");
-        vdao.add(v);
+        //  Veterinario v = new Veterinario("00000001", "Rafael", "Varela", "00000000001", "10000000", "Perros");
+        //  vdao.add(v);
+        
+        //  Prueba generateReference
+        Veterinario v2 = new Veterinario("87654321", "Rafael2", "Varela2", "00000000001", "Perros");
+        v2.setReference(v2.generateReference());
+        System.out.println(v2.getReference());
+        //
         
         List<Veterinario> lv = vdao.read();
        
@@ -116,6 +124,38 @@ public class VeterinarioC extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //  RequestDispatcher dispatcher = request.getRequestDispatcher("/Vistas/veterinario-c.jsp");
+        
+        String dni = request.getParameter("dni");
+        String name = request.getParameter("name");
+        String lastname = request.getParameter("lastname");
+        String phone = request.getParameter("phone");
+        String reference = request.getParameter("reference");
+        String specialist = request.getParameter("specialist");
+        
+        Veterinario vet = new Veterinario();
+        
+        vet.setDni(dni);
+        vet.setName(name);
+        vet.setLastname(lastname);
+        vet.setPhone(phone);
+        vet.setReference(reference);
+        vet.setSpecialist(specialist);
+        
+        System.out.println("Set attributes completed" + " " + vet.getName());
+        
+        //  AccessDB4O
+        ObjectContainer db = Db4oEmbedded.openFile(Db4oEmbedded
+                .newConfiguration(), "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o");
+        try {
+            // Do something with db4o
+            System.out.println("Opening the Database");
+            db.store(vet);
+        } finally {
+            db.close();
+            System.out.println("Closing the Database");
+            response.sendRedirect("/veterinario");
+        }
     }
 
     /**

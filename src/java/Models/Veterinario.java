@@ -42,6 +42,17 @@ public class Veterinario extends Persona {
         this.reference = reference;
         this.specialist = specialist;
     }
+    
+    public Veterinario(String dni, String name, String lastname, String phone, String specialist) {
+        super(dni, name, lastname, phone);
+        this.specialist = specialist;
+    }
+    
+    public Veterinario(Persona p, String reference, String specialist) {
+        super(p.getDni(), p.getName(), p.getName(), p.getPhone());
+        this.reference = reference;
+        this.specialist = specialist;
+    }
 
     public String getReference() {
         return reference;
@@ -62,6 +73,11 @@ public class Veterinario extends Persona {
     @Override
     public String toString() {
         return super.toString() + ", " + "Veterinario{" + "reference=" + reference + ", specialist=" + specialist + '}';
+    }
+    
+    public String generateReference() {
+        StringBuilder sb = new StringBuilder(this.getDni());
+        return sb.reverse().toString();
     }
 }
 

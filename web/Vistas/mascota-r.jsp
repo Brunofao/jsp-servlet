@@ -41,11 +41,11 @@
                 --%>
                 
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-default btn-outline-dark mb-3" data-toggle="modal" data-target="#exampleModal">
+                <button type="button" class="btn btn-default btn-outline-purple mb-3" data-toggle="modal" data-target="#exampleModal">
                     <b>+</b> Añadir Mascota
                 </button>
                 
-                <%@include file="modal-cu.jsp"%>
+                <%@include file="modal-mascota-cu.jsp"%>
                 
                 <!-- Table -->
                 <table id="fix-table" class="table table-bordered table-hover text-center table-responsive-sm table-responsive-md">
@@ -67,8 +67,8 @@
                                     <td><c:out value="${mascota.name}"/></td>
                                     <td><c:out value="${mascota.species}"/></td>
                                     <td class="text-center">
-                                        <a class="btn btn-default btn-outline-dark" href="${pageContext.request.contextPath}/mascota?id=${mascota.id}">Editar</a>
-                                        <a class="btn btn-default btn-outline-dark" href="">Borrar</a> 
+                                        <a class="btn btn-default btn-outline-purple" href="${pageContext.request.contextPath}/mascota?id=${mascota.id}">Editar</a>
+                                        <a class="btn btn-default btn-outline-purple" href="">Borrar</a> 
                                     </td>
                                 </tr>
                             </c:forEach>

@@ -25,6 +25,10 @@ package Controllers;
 
 import DAO.PersonaDAO;
 import Models.Persona;
+import com.db4o.Db4oEmbedded;
+import com.db4o.ObjectContainer;
+import com.db4o.ext.DatabaseClosedException;
+import com.db4o.ext.DatabaseReadOnlyException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -81,34 +85,23 @@ public class PersonaC extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        //  pdao.clearDatabase();
-        //  Persona p = new Persona("25595819", "Bruno", "Faoro", "04249585812");
-        //  Persona p1 = new Persona("00000000", "Bruno", "Tranquini", "00000000000");
-        //  pdao.add(p);
-        //  pdao.add(p1);
-        
-        /*  
-            //  Prueba
-            Persona prueba = new Persona();
-            prueba.setDni("25595819");
-            prueba.setName("Bruno");
-            prueba.setLastname("Faoro");
-            prueba.setPhone("04249585812");
-
-            pdao.add(prueba);
-        */
-        
+            throws ServletException, IOException {        
         List<Persona> p2 = pdao.read();
         
-        p2.forEach((lp0) -> {
-            System.out.println(lp0);
-        });
-        
-        //  Persona pruebita = pdao.findAPersonaByDNI(p.getDni());
-        //  System.out.println(pruebita.getName() + " " + "qué duro perro, buena función");
-        
         request.setAttribute("lista", p2);
+        
+        String dni = request.getParameter("dni");
+        
+        if (dni != null && !dni.isEmpty()) {
+            ObjectContainer db4o = Db4oEmbedded.openFile(Db4oEmbedded
+                .newConfiguration(), "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o");
+            Persona persona = pdao.findAPersonaByDNI(db4o, dni);
+            db4o.close();
+            request.setAttribute("personita", persona);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/Vistas/persona-c.jsp");
+            dispatcher.forward(request, response);
+        }
+        
         RequestDispatcher dispatcher = request.getRequestDispatcher("/Vistas/persona-r.jsp");
         dispatcher.forward(request, response);
     }
@@ -124,6 +117,45 @@ public class PersonaC extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        ////////////////////////////////////////////////////////////////////////
+        String dni = request.getParameter("dni");
+        String name = request.getParameter("name");
+        String lastname = request.getParameter("lastname");
+        String phone = request.getParameter("phone");
+        ////////////////////////////////////////////////////////////////////////
+        
+        String id = request.getParameter("id");
+        
+        if (id == null || id.isEmpty()) {
+           ObjectContainer db4o = Db4oEmbedded.openFile(Db4oEmbedded
+                .newConfiguration(), "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o");
+        try {
+            System.out.println("Database opened...");
+            db4o.store(new Persona(dni, name, lastname, phone));
+        }catch (DatabaseClosedException | DatabaseReadOnlyException e) {
+            System.out.println("Database closed with errors..." + " " + e);
+        }finally {
+            System.out.println("Database closed...");
+            db4o.close();
+            System.out.println("New person added...");
+        } 
+        } else {
+            System.out.println("Entró en el else...");
+            ObjectContainer db4o = Db4oEmbedded.openFile(Db4oEmbedded
+                .newConfiguration(), "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o");
+            try {
+                Persona personita;
+                personita = pdao.findAPersonaByDNI(db4o, id);
+                personita.setDni(dni);
+                personita.setName(name);
+                personita.setLastname(lastname);
+                personita.setPhone(phone);
+                db4o.store(personita);
+            } finally {
+                db4o.close();
+            }
+        }
+        response.sendRedirect("/persona");
     }
 
     /**

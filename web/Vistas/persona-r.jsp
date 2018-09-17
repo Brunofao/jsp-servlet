@@ -35,6 +35,14 @@
             <!-- call Nav-content -->
             <div id="content">
                 <%@include file="/Template/nav-content.jsp"%>
+                
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-default btn-outline-purple mb-3" data-toggle="modal" data-target="#exampleModal">
+                    <b>+</b> Añadir Persona
+                </button>
+                
+                <%@include file="modal-persona-cu.jsp"%>
+                
                 <table id="fix-table" class="table table-bordered table-hover text-center table-responsive-sm table-responsive-md">
                     <thead>
                         <tr>
@@ -42,6 +50,7 @@
                             <th scope="col">Nombre</th>
                             <th scope="col">Apellido</th>
                             <th scope="col">Teléfono</th>
+                            <th scope="col">Opciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -51,7 +60,11 @@
                                     <td><c:out value="${persona.dni}"/></td>
                                     <td><c:out value="${persona.name}"/></td>
                                     <td><c:out value="${persona.lastname}"/></td>
-                                    <td><c:out value="${persona.phone}"/></td>				
+                                    <td><c:out value="${persona.phone}"/></td>
+                                    <td class="text-center">
+                                        <a class="btn btn-default btn-outline-purple" href="${pageContext.request.contextPath}/persona?dni=${persona.dni}">Editar</a>
+                                        <a class="btn btn-default btn-outline-purple" href="">Borrar</a> 
+                                    </td>
                                 </tr>
                             </c:forEach>
                         </tr>

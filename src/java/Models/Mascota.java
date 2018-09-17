@@ -123,8 +123,6 @@ public class Mascota {
     }
     
     public String generateID () {
-        String gid;
-        gid = this.persona.getLastname().toLowerCase() + this.persona.getDni();
-        return gid;
+        return this.persona.getLastname().toLowerCase() + (this.persona.getDni() + this.name + this.species).toLowerCase();
     }
 }

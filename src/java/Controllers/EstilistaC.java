@@ -87,8 +87,8 @@ public class EstilistaC extends HttpServlet {
         //  edao.clearDatabase();
         
         //  String dni, String name, String lastname, String phone, String reference, String specialist
-        Estilista e = new Estilista("00000002", "Antonio", "Campos", "00000000002", "20000000", "Perros");
-        edao.add(e);
+        //  Estilista e = new Estilista("00000002", "Antonio", "Campos", "00000000002", "20000000", "Perros");
+        //  edao.add(e);
         
         List<Estilista> le = edao.read();
         

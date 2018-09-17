@@ -27,7 +27,7 @@ import Models.Conexion;
 import Models.Persona;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
-import com.db4o.query.Query;
+import com.db4o.query.Predicate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,15 +70,23 @@ public class PersonaDAO {
         return persona;
     }
     
-    public Persona findAPersonaByDNI(String dni) {
-        db = con.open();
-        Query query = db.query();
-        query.constrain(Persona.class);
-        query.descend(dni);
-        ObjectSet result = query.execute();
-        Persona persona = (Persona) result.next();
-        con.close(db);
-        return persona;
+    public Persona findAPersonaByDNI(ObjectContainer db, String dni) {
+        Persona toUpdate = db.query(new Predicate<Persona>() {
+            @Override
+            public boolean match(Persona persona) {
+                return persona.getDni().equals(dni);
+            }
+        }).get(0);
+        return toUpdate;
+    }
+    
+    public Persona Native(ObjectContainer db, String dni) {
+        Persona toUpdate2 = db.query(new Predicate<Persona>() {
+        @Override
+        public boolean match(Persona persona) {
+            return persona.getDni().equals(dni);
+        }}).get(0);
+        return toUpdate2;
     }
     
     public void clearDatabase() {

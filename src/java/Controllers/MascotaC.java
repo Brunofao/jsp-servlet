@@ -27,6 +27,9 @@ import DAO.MascotaDAO;
 import DAO.PersonaDAO;
 import Models.Mascota;
 import Models.Persona;
+import com.db4o.Db4oEmbedded;
+import com.db4o.ObjectContainer;
+import com.db4o.query.Predicate;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -84,41 +87,22 @@ public class MascotaC extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        //  mdao.clearDatabase();
-        //  pdao.clearDatabase();
-        //  Persona p = new Persona("25595819", "Bruno", "Faoro", "04249585812");
-        //  Mascota m = new Mascota(p, "819faoro", "Clementina", "Perro", 35.4f, "Femenino", "2", "Bull Terrier Inglés");
-        
-        /*
-            System.out.println("Viejo ID" + " " + m.getId());
-            m.setId(m.generateID());
-            System.out.println("Nuevo ID" + " " + m.getId());
-        */
-        
-        //  mdao.add(m);
-        
-        /*
-            Mascota pruebita = mdao.findAMascotaByID(m.getId());
-            System.out.println(pruebita.getName());
-        */
-        
+            throws ServletException, IOException { 
+        ////////////////////////////////////////////////////////////////////////
         List<Mascota> p2 = mdao.read();
-        
-        p2.forEach((lp0) -> {
-            System.out.println(lp0);
-        });
-        
+        ////////////////////////////////////////////////////////////////////////
         request.setAttribute("lista", p2);
         
         String id = request.getParameter("id");
         
         if (id != null && !id.isEmpty()) {
-            Mascota mascota = mdao.findAMascotaByID(id);
-            request.setAttribute("mascotica", mascota);
-            //  RequestDispatcher dispatcher = request.getRequestDispatcher("/Vistas/mascota-c.jsp");
-            //  dispatcher.forward(request, response);
-            //  System.out.println("Entró en la nueva función -> mdao.findAMascotaByID(id);");
+            ObjectContainer db4o = Db4oEmbedded.openFile(Db4oEmbedded
+                .newConfiguration(), "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o");
+            Mascota mascotax = mdao.findAMascotaByID(db4o, id);
+            db4o.close();
+            request.setAttribute("mascotica", mascotax);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/Vistas/mascota-c.jsp");
+            dispatcher.forward(request, response);
         }
         
         RequestDispatcher dispatcher = request.getRequestDispatcher("/Vistas/mascota-r.jsp");
@@ -136,33 +120,45 @@ public class MascotaC extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //  RequestDispatcher dispatcher = request.getRequestDispatcher("/Vistas/mascota-c.jsp");
-        
+        ////////////////////////////////////////////////////////////////////////
         String dni = request.getParameter("dni");
         String name = request.getParameter("name");
         String species = request.getParameter("species");
+        ////////////////////////////////////////////////////////////////////////
         
-        Persona aux = new Persona();
-        Mascota m = new Mascota();
+        String id = request.getParameter("id");
         
-        System.out.println(dni);
-        aux.setDni(dni);
-        
-        aux = pdao.findAPerson(aux);
-        System.out.println(aux.getLastname());
-        
-        Persona p = aux;
-        System.out.println(p.getDni());
-        
-        m.setPersona(p);
-        m.setName(name);
-        m.setSpecies(species);
-        
-        mdao.add(m);
-        
+        if (id == null || id.isEmpty()) {
+            System.out.println("Entró en el if...");
+            ObjectContainer db4o = Db4oEmbedded.openFile(Db4oEmbedded
+                .newConfiguration(), "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o");
+            try {
+                Mascota mascotica = new Mascota();
+                mascotica.setPersona(pdao.Native(db4o, dni));
+                mascotica.setName(name);
+                mascotica.setSpecies(species);
+                mascotica.setId(mascotica.generateID());
+                db4o.store(mascotica); 
+            } finally {
+                db4o.close();
+            }
+        } else {
+            System.out.println("Entró en el else...");
+            ObjectContainer db4o = Db4oEmbedded.openFile(Db4oEmbedded
+                .newConfiguration(), "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o");
+            try {
+                Mascota mascotica;
+                mascotica = mdao.findAMascotaByID(db4o, id);
+                mascotica.setPersona(pdao.Native(db4o, dni));
+                mascotica.setName(name);
+                mascotica.setSpecies(species);
+                mascotica.setId(mascotica.generateID());
+                db4o.store(mascotica);
+            } finally {
+                db4o.close();
+            }
+        }
         response.sendRedirect("/mascota");
-        
-        //  dispatcher.forward(request, response);
     }
 
     /**

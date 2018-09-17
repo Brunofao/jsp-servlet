@@ -27,6 +27,7 @@ import Models.Conexion;
 import Models.Mascota;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
+import com.db4o.query.Predicate;
 import com.db4o.query.Query;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,12 +38,12 @@ import java.util.List;
  */
 public class MascotaDAO {
     //
-    Conexion con;
+    Conexion con = new Conexion();
     ObjectContainer db = null;
     //
     
     public MascotaDAO() {
-        con = new Conexion();
+        //  con = new Conexion();
     }
     
     public void add(Mascota m) {
@@ -72,15 +73,45 @@ public class MascotaDAO {
         return Mascota;
     }
     
-    public Mascota findAMascotaByID(String id) {
+    public Mascota findAMascotaByID(ObjectContainer db, String id) {
+        Mascota toUpdate = db.query(new Predicate<Mascota>() {
+            @Override
+            public boolean match(Mascota mascota) {
+                return mascota.getId().equals(id);
+            }
+        }).get(0);
+        return toUpdate;
+    }
+    
+    public Mascota findAMascotaByID(ObjectContainer db, String id, String name, String species) {
+        Mascota toUpdate = db.query(new Predicate<Mascota>() {
+            @Override
+            public boolean match(Mascota mascota) {
+                return mascota.getId().equals(id) && mascota.getName().equals(name) && mascota.getSpecies().equals(species);
+            }
+        }).get(0);
+        return toUpdate;
+    }
+    
+    public Mascota Native(ObjectContainer db, String id) {
+        Mascota toUpdate = db.query(new Predicate<Mascota>() {
+        @Override
+        public boolean match(Mascota mascota) {
+            return mascota.getId().equals(id);
+        }}).get(0);
+        return toUpdate;
+    }
+    
+    public Mascota findAMascotaByPersonaDNI(String dni) {
         db = con.open();
-        Query query = db.query();
-        query.constrain(Mascota.class);
-        query.descend(id);
-        ObjectSet result = query.execute();
-        Mascota Mascota = (Mascota) result.next();
+        Mascota toUpdate = db.query(new Predicate<Mascota>() {
+            @Override
+            public boolean match(Mascota mascota) {
+                return mascota.getPersona().getDni().equals(dni);
+            }
+        }).get(0);
         con.close(db);
-        return Mascota;
+        return toUpdate;
     }
     
     public void clearDatabase() {

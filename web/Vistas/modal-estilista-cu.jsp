@@ -34,9 +34,6 @@
                                         <input type="text" class="form-control form-control-lg" id="phone" name="phone" placeholder="Teléfono" />
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" class="form-control form-control-lg" id="reference" name="reference" placeholder="Referencia" />
-                                    </div>
-                                    <div class="form-group">
                                         <input type="text" class="form-control form-control-lg" id="specialist" name="specialist" placeholder="Especialidad" />
                                     </div>
                                     <div class="form-group d-flex justify-content-center">

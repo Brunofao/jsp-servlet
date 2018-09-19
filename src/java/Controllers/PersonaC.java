@@ -101,7 +101,6 @@ public class PersonaC extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/Vistas/persona-c.jsp");
             dispatcher.forward(request, response);
         }
-        
         RequestDispatcher dispatcher = request.getRequestDispatcher("/Vistas/persona-r.jsp");
         dispatcher.forward(request, response);
     }

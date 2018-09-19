@@ -37,10 +37,10 @@ public class RoomSurgery {
     public RoomSurgery() {
     }
 
-    public RoomSurgery(String id, Mascota mascota, Veterinario veterinario) {
-        this.id = id;
+    public RoomSurgery(Mascota mascota, Veterinario veterinario) {
         this.mascota = mascota;
         this.veterinario = veterinario;
+        this.id = this.generateID();
     }
 
     public String getId() {
@@ -58,13 +58,21 @@ public class RoomSurgery {
     public void setId(String id) {
         this.id = id;
     }
-
+    
+    public void setId() {
+        this.id = this.generateID();
+    }
+    
     public void setMascota(Mascota mascota) {
         this.mascota = mascota;
     }
 
     public void setVeterinario(Veterinario veterinario) {
         this.veterinario = veterinario;
+    }
+    
+    private String generateID() {
+        return ("surgery-" + this.mascota.getId());
     }
 
     @Override

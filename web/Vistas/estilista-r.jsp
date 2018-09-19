@@ -65,7 +65,7 @@
                                     <td><c:out value="${estilista.reference}"/></td>
                                     <td><c:out value="${estilista.specialist}"/></td>
                                     <td class="text-center">
-                                        <a class="btn btn-default btn-outline-purple" href="${pageContext.request.contextPath}/mascota?id=${mascota.id}">Editar</a>
+                                        <a class="btn btn-default btn-outline-purple" href="${pageContext.request.contextPath}/estilista?reference=${estilista.reference}">Editar</a>
                                         <a class="btn btn-default btn-outline-purple" href="">Borrar</a> 
                                     </td>
                                 </tr>

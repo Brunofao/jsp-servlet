@@ -24,11 +24,10 @@
 package DAO;
 
 import Models.Conexion;
-import Models.RoomSPA;
 import Models.RoomSurgery;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
-import com.db4o.query.Query;
+import com.db4o.query.Predicate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,15 +70,14 @@ public class SurgeryDAO {
         return roomsurgery;
     }
     
-    public RoomSurgery findARoomSurgeryByID(String id) {
-        db = con.open();
-        Query query = db.query();
-        query.constrain(RoomSurgery.class);
-        query.descend(id);
-        ObjectSet result = query.execute();
-        RoomSurgery roomsurgery = (RoomSurgery) result.next();
-        con.close(db);
-        return roomsurgery;
+    public RoomSurgery findARoomSurgeryByID(ObjectContainer db, String id) {
+        RoomSurgery toUpdate = db.query(new Predicate<RoomSurgery>() {
+            @Override
+            public boolean match(RoomSurgery roomsurgery) {
+                return roomsurgery.getId().equals(id);
+            }
+        }).get(0);
+        return toUpdate;
     }
     
     public void clearDatabase() {

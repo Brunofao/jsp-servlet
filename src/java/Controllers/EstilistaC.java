@@ -27,6 +27,8 @@ import DAO.EstilistaDAO;
 import Models.Estilista;
 import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;
+import com.db4o.ext.DatabaseClosedException;
+import com.db4o.ext.DatabaseReadOnlyException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -84,20 +86,22 @@ public class EstilistaC extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //  edao.clearDatabase();
-        
-        //  String dni, String name, String lastname, String phone, String reference, String specialist
-        //  Estilista e = new Estilista("00000002", "Antonio", "Campos", "00000000002", "20000000", "Perros");
-        //  edao.add(e);
-        
+        ////////////////////////////////////////////////////////////////////////
         List<Estilista> le = edao.read();
-        
-        le.forEach((le0) -> {
-            System.out.println(le0);
-        });
-        
+        ////////////////////////////////////////////////////////////////////////        
         request.setAttribute("lista", le);
         
+        String id = request.getParameter("reference");
+        
+        if (id != null && !id.isEmpty()) {
+            ObjectContainer db4o = Db4oEmbedded.openFile(Db4oEmbedded
+                .newConfiguration(), "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o");
+            Estilista estilistax = edao.findAEstilistByDNI(db4o, id);
+            db4o.close();
+            request.setAttribute("estilista", estilistax);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/Vistas/estilista-c.jsp");
+            dispatcher.forward(request, response);
+        }
         RequestDispatcher dispatcher = request.getRequestDispatcher("/Vistas/estilista-r.jsp");
         dispatcher.forward(request, response);
     }
@@ -113,36 +117,48 @@ public class EstilistaC extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        ////////////////////////////////////////////////////////////////////////
         String dni = request.getParameter("dni");
         String name = request.getParameter("name");
         String lastname = request.getParameter("lastname");
         String phone = request.getParameter("phone");
-        String reference = request.getParameter("reference");
         String specialist = request.getParameter("specialist");
+        ////////////////////////////////////////////////////////////////////////
         
-        Estilista est = new Estilista();
+        String id = request.getParameter("id");
         
-        est.setDni(dni);
-        est.setName(name);
-        est.setLastname(lastname);
-        est.setPhone(phone);
-        est.setReference(reference);
-        est.setSpecialist(specialist);
-        
-        System.out.println("Set attributes completed" + " " + est.getName());
-        
-        //  AccessDB4O
-        ObjectContainer db = Db4oEmbedded.openFile(Db4oEmbedded
+        if (id == null || id.isEmpty()) {
+           ObjectContainer db4o = Db4oEmbedded.openFile(Db4oEmbedded
                 .newConfiguration(), "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o");
         try {
-            // Do something with db4o
-            System.out.println("Opening the Database");
-            db.store(est);
-        } finally {
-            db.close();
-            System.out.println("Closing the Database");
-            response.sendRedirect("/estilista");
+            System.out.println("Database opened...");
+            db4o.store(new Estilista(dni, name, lastname, phone, specialist));
+        }catch (DatabaseClosedException | DatabaseReadOnlyException e) {
+            System.out.println("Database closed with errors..." + " " + e);
+        }finally {
+            System.out.println("Database closed...");
+            db4o.close();
+            System.out.println("New person added...");
+        } 
+        } else {
+            System.out.println("Entró en el else...");
+            ObjectContainer db4o = Db4oEmbedded.openFile(Db4oEmbedded
+                .newConfiguration(), "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o");
+            try {
+                Estilista estilista;
+                estilista = edao.findAEstilistByDNI(db4o, id);
+                estilista.setDni(dni);
+                estilista.setName(name);
+                estilista.setLastname(lastname);
+                estilista.setPhone(phone);
+                estilista.setReference();
+                estilista.setSpecialist(specialist);
+                db4o.store(estilista);
+            } finally {
+                db4o.close();
+            }
         }
+        response.sendRedirect("/estilista");
     }
 
     /**

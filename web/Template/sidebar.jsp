@@ -43,18 +43,18 @@
             </ul>
         </li>
         <li>
-            <a href="#menu3" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">SPA</a>
+            <a href="#menu3" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Cirugías</a>
             <ul class="collapse list-unstyled" id="menu3">
                 <li>
-                    <a href="/spa">CRUD SPA</a>
+                    <a href="/surgery">CRUD Cirugías</a>
                 </li>
             </ul>
         </li>
         <li>
-            <a href="#menu4" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Cirugías</a>
+            <a href="#menu4" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">SPA</a>
             <ul class="collapse list-unstyled" id="menu4">
                 <li>
-                    <a href="/surgery">CRUD Cirugías</a>
+                    <a href="/spa">CRUD SPA</a>
                 </li>
             </ul>
         </li>

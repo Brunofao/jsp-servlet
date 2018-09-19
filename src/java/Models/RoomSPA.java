@@ -37,10 +37,10 @@ public class RoomSPA {
     public RoomSPA() {
     }
 
-    public RoomSPA(String id, Mascota mascota, Estilista estilista) {
-        this.id = id;
+    public RoomSPA(Mascota mascota, Estilista estilista) {
         this.mascota = mascota;
         this.estilista = estilista;
+        this.id = this.generateID();
     }
 
     public String getId() {
@@ -58,6 +58,9 @@ public class RoomSPA {
     public void setId(String id) {
         this.id = id;
     }
+    public void setId() {
+        this.id = this.generateID();
+    }
 
     public void setMascota(Mascota mascota) {
         this.mascota = mascota;
@@ -65,6 +68,10 @@ public class RoomSPA {
 
     public void setEstilista(Estilista estilista) {
         this.estilista = estilista;
+    }
+    
+    private String generateID() {
+        return ("spa-" + this.mascota.getId());
     }
 
     @Override

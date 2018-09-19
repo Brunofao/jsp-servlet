@@ -65,7 +65,7 @@
                                     <td><c:out value="${veterinario.reference}"/></td>
                                     <td><c:out value="${veterinario.specialist}"/></td>
                                     <td class="text-center">
-                                        <a class="btn btn-default btn-outline-purple" href="${pageContext.request.contextPath}/mascota?id=${mascota.id}">Editar</a>
+                                        <a class="btn btn-default btn-outline-purple" href="${pageContext.request.contextPath}/veterinario?reference=${veterinario.reference}">Editar</a>
                                         <a class="btn btn-default btn-outline-purple" href="">Borrar</a> 
                                     </td>
                                 </tr>

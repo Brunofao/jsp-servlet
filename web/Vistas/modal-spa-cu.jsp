@@ -43,7 +43,7 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <select class="form-control form-control-lg custom-select" id="id" name="id">
+                                        <select class="form-control form-control-lg custom-select" id="mascota" name="mascota">
                                         <option selected disabled>Elige a una mascota</option>
                                         <% for(int i = 0; i < m.size(); i++) { %>
                                             <option value="<% out.print(m.get(i).getId()); %>"><% out.print(m.get(i).getName() + " " + m.get(i).getSpecies()); %></option>

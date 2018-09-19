@@ -104,7 +104,6 @@ public class MascotaC extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/Vistas/mascota-c.jsp");
             dispatcher.forward(request, response);
         }
-        
         RequestDispatcher dispatcher = request.getRequestDispatcher("/Vistas/mascota-r.jsp");
         dispatcher.forward(request, response);
     }

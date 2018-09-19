@@ -27,7 +27,7 @@ import Models.Conexion;
 import Models.RoomSPA;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
-import com.db4o.query.Query;
+import com.db4o.query.Predicate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,15 +70,14 @@ public class SpaDAO {
         return roomspa;
     }
     
-    public RoomSPA findARoomSPAByID(String id) {
-        db = con.open();
-        Query query = db.query();
-        query.constrain(RoomSPA.class);
-        query.descend(id);
-        ObjectSet result = query.execute();
-        RoomSPA roomspa = (RoomSPA) result.next();
-        con.close(db);
-        return roomspa;
+    public RoomSPA findARoomSPAByID(ObjectContainer db, String id) {
+        RoomSPA toUpdate = db.query(new Predicate<RoomSPA>() {
+            @Override
+            public boolean match(RoomSPA roomspa) {
+                return roomspa.getId().equals(id);
+            }
+        }).get(0);
+        return toUpdate;
     }
     
     public void clearDatabase() {

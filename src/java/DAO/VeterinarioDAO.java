@@ -28,7 +28,7 @@ import Models.Persona;
 import Models.Veterinario;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
-import com.db4o.query.Query;
+import com.db4o.query.Predicate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,15 +71,24 @@ public class VeterinarioDAO {
         return veterinario;
     }
     
-    public Veterinario findAVeterinarioByDNI(String dni) {
-        db = con.open();
-        Query query = db.query();
-        query.constrain(Veterinario.class);
-        query.descend(dni);
-        ObjectSet result = query.execute();
-        Veterinario veterinario = (Veterinario) result.next();
-        con.close(db);
-        return veterinario;
+    public Veterinario findAVeterinarioByDNI(ObjectContainer db, String reference) {
+        Veterinario toUpdate = db.query(new Predicate<Veterinario>() {
+            @Override
+            public boolean match(Veterinario veterinario) {
+                return veterinario.getReference().equals(reference);
+            }
+        }).get(0);
+        return toUpdate;
+    }
+    
+    public Veterinario findAVeterinarioByDNI2(ObjectContainer db, String dni) {
+        Veterinario toUpdate = db.query(new Predicate<Veterinario>() {
+            @Override
+            public boolean match(Veterinario veterinario) {
+                return veterinario.getDni().equals(dni);
+            }
+        }).get(0);
+        return toUpdate;
     }
     
     public void clearDatabase() {

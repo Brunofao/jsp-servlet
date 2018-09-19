@@ -1,8 +1,22 @@
 <%-- 
-    Document   : modal-estilista-cu
-    Created on : 11/09/2018, 08:44:47 AM
+    Document   : modal-surgery-cu
+    Created on : 19/09/2018, 10:52:38 AM
     Author     : John Wick Recargado
 --%>
+
+
+<%@page import="Models.Mascota"%>
+<%@page import="Models.Veterinario"%>
+<%@page import="java.util.List"%>
+<%@page import="DAO.MascotaDAO"%>
+<%@page import="DAO.VeterinarioDAO"%>
+<%
+    VeterinarioDAO vdao = new VeterinarioDAO();
+    MascotaDAO mdao = new MascotaDAO();
+    List<Veterinario> v = vdao.read();
+    List<Mascota> m = mdao.read();
+    //  request.setAttribute("persona", p);
+%>
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -19,22 +33,23 @@
                     <div class="container">
                         <div class="row">
                             <div class="p-4 col-12">
-                                <form action="http://localhost:8080/veterinario" method="post" autocomplete="off">
+                                <form action="http://localhost:8080/surgery" method="post" autocomplete="off">
                                     <h4 class="text-center pb-3">Agregar Veterinario</h1>
                                     <div class="form-group">
-                                        <input type="text" class="form-control form-control-lg" id="dni" name="dni" placeholder="DNI" />
+                                        <select class="form-control form-control-lg custom-select" id="dni" name="dni">
+                                            <option selected disabled>Elige a un veterinario</option>
+                                            <% for(int i = 0; i < v.size(); i++) { %>
+                                                <option value="<% out.print(v.get(i).getDni()); %>"><% out.print(v.get(i).getName() + " " + v.get(i).getLastname()); %></option>
+                                            <%}%>
+                                        </select>
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" class="form-control form-control-lg" id="name" name="name" placeholder="Nombre" />
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="text" class="form-control form-control-lg" id="lastname" name="lastname" placeholder="Apellido" />
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="text" class="form-control form-control-lg" id="phone" name="phone" placeholder="Teléfono" />
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="text" class="form-control form-control-lg" id="specialist" name="specialist" placeholder="Especialidad" />
+                                        <select class="form-control form-control-lg custom-select" id="mascota" name="mascota">
+                                        <option selected disabled>Elige a una mascota</option>
+                                        <% for(int i = 0; i < m.size(); i++) { %>
+                                            <option value="<% out.print(m.get(i).getId()); %>"><% out.print(m.get(i).getName() + " " + m.get(i).getSpecies()); %></option>
+                                        <%}%>
+                                    </select>
                                     </div>
                                     <div class="form-group d-flex justify-content-center">
                                         <button type="submit" class="btn btn-outline-success btn-lg mr-1">Agregar veterinario</button>

@@ -36,10 +36,10 @@ public class Estilista extends Persona {
     public Estilista() {
         super();
     }
-
-    public Estilista(String dni, String name, String lastname, String phone, String reference, String specialist) {
+    
+    public Estilista(String dni, String name, String lastname, String phone, String specialist) {
         super(dni, name, lastname, phone);
-        this.reference = reference;
+        this.reference = this.generateReference();
         this.specialist = specialist;
     }
 
@@ -50,13 +50,27 @@ public class Estilista extends Persona {
     public String getSpecialist() {
         return specialist;
     }
-
+    
     public void setReference(String reference) {
         this.reference = reference;
     }
 
+    public void setReference() {
+        this.reference = this.generateReference();
+    }
+
     public void setSpecialist(String specialist) {
         this.specialist = specialist;
+    }
+    
+    private String generateReference() {
+        StringBuilder sb = new StringBuilder(this.getDni());
+        return sb.reverse().toString();
+        
+        /*
+            StringBuilder sb = new StringBuilder(this.getDni());
+            return this.reference = sb.reverse().toString();
+        */
     }
 
     @Override

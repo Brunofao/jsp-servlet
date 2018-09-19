@@ -31,6 +31,10 @@ import DAO.SurgeryDAO;
 import Models.Estilista;
 import Models.Mascota;
 import Models.RoomSPA;
+import com.db4o.Db4oEmbedded;
+import com.db4o.ObjectContainer;
+import com.db4o.ext.DatabaseClosedException;
+import com.db4o.ext.DatabaseReadOnlyException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -92,38 +96,23 @@ public class SpaC extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //  spadao.clearDatabase();
-        //  RoomSPA roomspa = new RoomSPA();
-        //  Estilista estilista = new Estilista();
-        //  Mascota mascota = new Mascota();
+        ////////////////////////////////////////////////////////////////////////
+        List<RoomSPA> spal = spadao.read();
+        ////////////////////////////////////////////////////////////////////////
+        request.setAttribute("lista", spal);
         
-        /*
-            Mascota mascota = mdao.findAMascotaByID("819faoro");
-            Estilista estilista = edao.findAEstilistByDNI("00000002");
-            roomspa.setId("spa#" + mascota.getId());
-            roomspa.setEstilista(estilista);
-            roomspa.setMascota(mascota);
-
-            spadao.add(roomspa);
-        */
+        String id = request.getParameter("id");
+        //  System.out.println(id);
         
-        /*
-            pdao.clearDatabase();
-            sdao.clearDatabase();
-            spadao.clearDatabase();
-            mdao.clearDatabase();
-            edao.clearDatabase();
-        */
-        
-        List<RoomSPA> spa2 = spadao.read();
-        
-        spa2.forEach((spa0) -> {
-            System.out.println(spa0);
-        });
-        
-        request.setAttribute("lista", spa2);
-        
-        //  response.sendRedirect("/spa");
+        if (id != null && !id.isEmpty()) {
+            ObjectContainer db4o = Db4oEmbedded.openFile(Db4oEmbedded
+                .newConfiguration(), "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o");
+            RoomSPA roomspax = spadao.findARoomSPAByID(db4o, id);
+            db4o.close();
+            request.setAttribute("spa", roomspax);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/Vistas/spa-c.jsp");
+            dispatcher.forward(request, response);
+        }
         
         RequestDispatcher dispatcher = request.getRequestDispatcher("/Vistas/spa-r.jsp");
         dispatcher.forward(request, response);
@@ -140,19 +129,50 @@ public class SpaC extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //
+        ////////////////////////////////////////////////////////////////////////
         String dni = request.getParameter("dni");
+        String mascotaid = request.getParameter("mascota");
+        ////////////////////////////////////////////////////////////////////////
+        
+        
         String id = request.getParameter("id");
+        //  System.out.println(id);
         
-        RoomSPA roomspa = new RoomSPA();
-        Estilista e = edao.findAEstilistByDNI(dni);
-        Mascota m = mdao.findAMascotaByID(id);
-        
-        roomspa.setEstilista(e);
-        roomspa.setMascota(m);
-        
-        spadao.add(roomspa);
-        
+        if (id == null || id.isEmpty()) {
+           ObjectContainer db4o = Db4oEmbedded.openFile(Db4oEmbedded
+                .newConfiguration(), "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o");
+        try {
+            System.out.println("Database opened...");
+            Mascota mascota = mdao.Native(db4o, mascotaid);
+            Estilista estilista = edao.findAEstilistByDNI2(db4o, dni);
+            RoomSPA roomspa = new RoomSPA();
+            roomspa.setMascota(mascota);
+            roomspa.setEstilista(estilista);
+            roomspa.setId();
+            db4o.store(roomspa);
+        }catch (DatabaseClosedException | DatabaseReadOnlyException e) {
+            System.out.println("Database closed with errors..." + " " + e);
+        }finally {
+            System.out.println("Database closed...");
+            db4o.close();
+            System.out.println("New person added...");
+        } 
+        } else {
+            System.out.println("Entró en el else...");
+            System.out.println(mascotaid + " " + dni);
+            ObjectContainer db4o = Db4oEmbedded.openFile(Db4oEmbedded
+                .newConfiguration(), "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o");
+            try {
+                RoomSPA room;
+                room = spadao.findARoomSPAByID(db4o, id);
+                room.setMascota(mdao.findAMascotaByID(db4o, mascotaid));
+                room.setEstilista(edao.findAEstilistByDNI2(db4o, dni));
+                room.setId();
+                db4o.store(room);
+            } finally {
+                db4o.close();
+            }
+        }
         response.sendRedirect("/spa");
     }
 

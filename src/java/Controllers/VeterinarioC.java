@@ -28,6 +28,8 @@ import DAO.VeterinarioDAO;
 import Models.Veterinario;
 import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;
+import com.db4o.ext.DatabaseClosedException;
+import com.db4o.ext.DatabaseReadOnlyException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -86,29 +88,23 @@ public class VeterinarioC extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //  vdao.clearDatabase();
-        
-        //  String dni, String name, String lastname, String phone, String reference, String specialist
-        //  Veterinario v = new Veterinario("00000001", "Rafael", "Varela", "00000000001", "10000000", "Perros");
-        //  vdao.add(v);
-        
-        //  Prueba generateReference
-        Veterinario v2 = new Veterinario("87654321", "Rafael2", "Varela2", "00000000001", "Perros");
-        v2.setReference(v2.generateReference());
-        System.out.println(v2.getReference());
-        //
-        
+        ////////////////////////////////////////////////////////////////////////
         List<Veterinario> lv = vdao.read();
-       
-        lv.forEach((lv0) -> {
-            System.out.println(lv0);
-        });
-        
-        //  Veterinario b = vdao.findAVeterinarioByDNI(v.getDni());
-        //  System.out.println(b.getName());
-        
+        ////////////////////////////////////////////////////////////////////////
         request.setAttribute("lista", lv);
         
+        String id = request.getParameter("reference");
+        
+        if (id != null && !id.isEmpty()) {
+            ObjectContainer db4o = Db4oEmbedded.openFile(Db4oEmbedded
+                .newConfiguration(), "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o");
+            Veterinario veterinariox = vdao.findAVeterinarioByDNI(db4o, id);
+            System.out.println(veterinariox);
+            db4o.close();
+            request.setAttribute("veterinario", veterinariox);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/Vistas/veterinario-c.jsp");
+            dispatcher.forward(request, response);
+        }
         RequestDispatcher dispatcher = request.getRequestDispatcher("/Vistas/veterinario-r.jsp");
         dispatcher.forward(request, response);
     }
@@ -125,37 +121,74 @@ public class VeterinarioC extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //  RequestDispatcher dispatcher = request.getRequestDispatcher("/Vistas/veterinario-c.jsp");
-        
+        ////////////////////////////////////////////////////////////////////////
         String dni = request.getParameter("dni");
         String name = request.getParameter("name");
         String lastname = request.getParameter("lastname");
         String phone = request.getParameter("phone");
-        String reference = request.getParameter("reference");
         String specialist = request.getParameter("specialist");
+        ////////////////////////////////////////////////////////////////////////
         
-        Veterinario vet = new Veterinario();
+        String id = request.getParameter("id");
         
-        vet.setDni(dni);
-        vet.setName(name);
-        vet.setLastname(lastname);
-        vet.setPhone(phone);
-        vet.setReference(reference);
-        vet.setSpecialist(specialist);
-        
-        System.out.println("Set attributes completed" + " " + vet.getName());
-        
-        //  AccessDB4O
-        ObjectContainer db = Db4oEmbedded.openFile(Db4oEmbedded
+        if (id == null || id.isEmpty()) {
+           ObjectContainer db4o = Db4oEmbedded.openFile(Db4oEmbedded
                 .newConfiguration(), "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o");
         try {
-            // Do something with db4o
-            System.out.println("Opening the Database");
-            db.store(vet);
-        } finally {
-            db.close();
-            System.out.println("Closing the Database");
-            response.sendRedirect("/veterinario");
+            System.out.println("Database opened...");
+            db4o.store(new Veterinario(dni, name, lastname, phone, specialist));
+        }catch (DatabaseClosedException | DatabaseReadOnlyException e) {
+            System.out.println("Database closed with errors..." + " " + e);
+        }finally {
+            System.out.println("Database closed...");
+            db4o.close();
+            System.out.println("New person added...");
+        } 
+        } else {
+            System.out.println("Entró en el else...");
+            ObjectContainer db4o = Db4oEmbedded.openFile(Db4oEmbedded
+                .newConfiguration(), "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o");
+            try {
+                Veterinario veterinario;
+                veterinario = vdao.findAVeterinarioByDNI(db4o, id);
+                veterinario.setDni(dni);
+                veterinario.setName(name);
+                veterinario.setLastname(lastname);
+                veterinario.setPhone(phone);
+                veterinario.setReference();
+                veterinario.setSpecialist(specialist);
+                db4o.store(veterinario);
+            } finally {
+                db4o.close();
+            }
         }
+        response.sendRedirect("/veterinario");
+        
+        /*
+            Veterinario vet = new Veterinario();
+
+            vet.setDni(dni);
+            vet.setName(name);
+            vet.setLastname(lastname);
+            vet.setPhone(phone);
+            vet.setReference(reference);
+            vet.setSpecialist(specialist);
+
+            System.out.println("Set attributes completed" + " " + vet.getName());
+
+            //  AccessDB4O
+            ObjectContainer db = Db4oEmbedded.openFile(Db4oEmbedded
+                    .newConfiguration(), "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o");
+            try {
+                // Do something with db4o
+                System.out.println("Opening the Database");
+                db.store(vet);
+            } finally {
+                db.close();
+                System.out.println("Closing the Database");
+                response.sendRedirect("/veterinario");
+            }
+        */
     }
 
     /**

@@ -45,7 +45,7 @@
                     <b>+</b> Añadir Cirugía
                 </button>
                 
-                <%@include file="modal-veterinario-cu.jsp"%>
+                <%@include file="modal-surgery-cu.jsp"%>
                 
                 <!-- Table -->
                 <table id="fix-table" class="table table-bordered table-hover text-center table-responsive-sm table-responsive-md">
@@ -67,7 +67,7 @@
                                     <td><c:out value="${surgery.veterinario.name} ${surgery.veterinario.lastname} (${surgery.veterinario.dni})"/></td>
                                     <td><c:out value="${surgery.veterinario.reference}"/></td>
                                     <td class="text-center">
-                                        <a class="btn btn-default btn-outline-purple" href="${pageContext.request.contextPath}/mascota?id=${mascota.id}">Editar</a>
+                                        <a class="btn btn-default btn-outline-purple" href="${pageContext.request.contextPath}/surgery?id=${surgery.id}">Editar</a>
                                         <a class="btn btn-default btn-outline-purple" href="">Borrar</a> 
                                     </td>
                                 </tr>

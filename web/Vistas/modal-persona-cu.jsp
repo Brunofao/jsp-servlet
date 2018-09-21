@@ -19,7 +19,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="p-4 col-12">
-                                <form action="http://localhost:8080/mascota" method="post" autocomplete="off">
+                                <form action="http://localhost:8080/persona" method="post" autocomplete="off">
                                     <h4 class="text-center pb-3">Agregar Persona</h1>
                                     <div class="form-group">
                                         <input type="text" class="form-control form-control-lg" id="dni" name="dni" placeholder="Nº de Documento de Identidad" value="<c:out value="${personita.dni}"/>"/>

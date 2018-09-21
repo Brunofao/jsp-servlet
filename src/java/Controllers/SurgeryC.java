@@ -23,16 +23,20 @@
  */
 package Controllers;
 
+import DAO.HistorialDAO;
 import DAO.MascotaDAO;
 import DAO.SurgeryDAO;
 import DAO.VeterinarioDAO;
+import Models.Historial;
 import Models.Mascota;
 import Models.RoomSurgery;
 import Models.Veterinario;
 import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;
+import com.db4o.ObjectSet;
 import com.db4o.ext.DatabaseClosedException;
 import com.db4o.ext.DatabaseReadOnlyException;
+import com.db4o.query.Query;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -114,6 +118,9 @@ public class SurgeryC extends HttpServlet {
             ObjectContainer db4o = Db4oEmbedded.openFile(Db4oEmbedded
                 .newConfiguration(), "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o");
             RoomSurgery roomsurgeryx = sdao.findARoomSurgeryByID(db4o, id);
+            HistorialDAO hist = new HistorialDAO();
+            List<Historial> h = hist.findAHistoryByMascotaID(db4o, "faoro25595819clementinaperro");
+            h.forEach(System.out::println);
             db4o.close();
             request.setAttribute("surgery", roomsurgeryx);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/Vistas/surgery-c.jsp");
@@ -175,6 +182,16 @@ public class SurgeryC extends HttpServlet {
                 room.setVeterinario(vdao.findAVeterinarioByDNI2(db4o, dni));
                 room.setId();
                 db4o.store(room);
+                Historial history = new Historial();
+                history.setId(room.getMascota().getId());
+                history.setVeterinario(room.getVeterinario());
+                history.setDiagnostic("dwdwdwdwdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
+                history.setTreatment("wdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
+                System.out.println(history.toString());
+                Mascota mhistory = room.getMascota();
+                mhistory.setHistory(history);
+                System.out.println(mhistory);
+                db4o.store(mhistory);
             } finally {
                 db4o.close();
             }

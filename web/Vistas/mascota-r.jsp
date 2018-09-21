@@ -55,6 +55,7 @@
                             <th scope="col">#ID</th>
                             <th scope="col">Nombre</th>
                             <th scope="col">Especie</th>
+                            <%-- <th scope="col">Historial</th> --%>
                             <th scope="col">Opciones</th>
                         </tr>
                     </thead>
@@ -63,9 +64,12 @@
                             <c:forEach var="mascota" items="${lista}">
                                 <tr>
                                     <td><c:out value="${mascota.persona.name} ${mascota.persona.lastname} (${mascota.persona.dni})"/></td>
-                                    <td><c:out value="${mascota.id}"/></td>
+                                    <%-- <td><c:out value="${mascota.id}"/></td> --%>
+                                    <td><a class="btn btn-default btn-outline-purple" href="${pageContext.request.contextPath}/mascota?history=${mascota.id}"><c:out value="${mascota.id}"/></a></td>
                                     <td><c:out value="${mascota.name}"/></td>
                                     <td><c:out value="${mascota.species}"/></td>
+                                    <%-- <td><c:out value="${mascota.history.veterinario.name}"/></td> --%>
+                                    <%-- <td><c:out value="${mascota.history}"/></td> --%>
                                     <td class="text-center">
                                         <a class="btn btn-default btn-outline-purple" href="${pageContext.request.contextPath}/mascota?id=${mascota.id}">Editar</a>
                                         <a class="btn btn-default btn-outline-purple" href="">Borrar</a> 

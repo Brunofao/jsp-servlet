@@ -54,7 +54,7 @@
                             <th scope="col">#ID</th>
                             <th scope="col">Mascota atendida:</th>
                             <th scope="col">Atendida por:</th>
-                            <th scope="col">Referencia del Estilista:</th>
+                            <th scope="col">Referencia del Veterinario</th>
                             <th scope="col">Opciones</th>
                         </tr>
                     </thead>

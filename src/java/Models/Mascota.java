@@ -37,12 +37,13 @@ public class Mascota {
     private String sex;
     private String age;
     private String race;
+    private Historial history;
     //
 
     public Mascota() {
     }
 
-    public Mascota(Persona persona, String id, String name, String species, Float weight, String sex, String age, String race) {
+    public Mascota(Persona persona, String id, String name, String species, Float weight, String sex, String age, String race, Historial history) {
         this.persona = persona;
         this.id = id;
         this.name = name;
@@ -51,6 +52,7 @@ public class Mascota {
         this.sex = sex;
         this.age = age;
         this.race = race;
+        this.history = history;
     }
 
     public Persona getPersona() {
@@ -85,6 +87,10 @@ public class Mascota {
         return race;
     }
 
+    public Historial getHistory() {
+        return history;
+    }
+
     public void setPersona(Persona persona) {
         this.persona = persona;
     }
@@ -117,10 +123,21 @@ public class Mascota {
         this.race = race;
     }
 
+    public void setHistory(Historial history) {
+        this.history = history;
+    }
+
+    @Override
+    public String toString() {
+        return "Mascota{" + "persona=" + persona + ", id=" + id + ", name=" + name + ", species=" + species + ", weight=" + weight + ", sex=" + sex + ", age=" + age + ", race=" + race + ", history=" + history + '}';
+    }
+    
+    /*
     @Override
     public String toString() {
         return "Mascota{" + "persona=" + persona + ", id=" + id + ", name=" + name + ", species=" + species + ", weight=" + weight + ", sex=" + sex + ", age=" + age + ", race=" + race + '}';
     }
+    */
     
     public String generateID () {
         return this.persona.getLastname().toLowerCase() + (this.persona.getDni() + this.name + this.species).toLowerCase();

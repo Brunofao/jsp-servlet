@@ -85,3 +85,12 @@ select.form-control-lg:not([size]):not([multiple]) {
 ::-webkit-scrollbar-thumb {
     background: #7386D5; 
 }
+
+.modal-xxl {
+    max-width: 85rem;
+}
+
+td.wr{
+    max-width: 150px;
+    overflow: auto;
+}

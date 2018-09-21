@@ -54,6 +54,18 @@ public class Mascota {
         this.race = race;
         this.history = history;
     }
+    
+    public Mascota(Persona persona, String name, String species, Float weight, String sex, String age, String race, Historial history) {
+        this.persona = persona;
+        this.name = name;
+        this.species = species;
+        this.weight = weight;
+        this.sex = sex;
+        this.age = age;
+        this.race = race;
+        this.history = history;
+        this.id = this.generateID();
+    }
 
     public Persona getPersona() {
         return persona;
@@ -98,6 +110,10 @@ public class Mascota {
     public void setId(String id) {
         this.id = id;
     }
+    
+    public void setId() {
+        this.id = this.generateID();
+    }
 
     public void setName(String name) {
         this.name = name;
@@ -139,7 +155,7 @@ public class Mascota {
     }
     */
     
-    public String generateID () {
+    public final String generateID () {
         return this.persona.getLastname().toLowerCase() + (this.persona.getDni() + this.name + this.species).toLowerCase();
     }
 }

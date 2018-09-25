@@ -21,6 +21,9 @@
                 <li>
                     <a href="/persona">CRUD Persona</a>
                 </li>
+                <li>
+                    <a href="/personaJ">CRUD Persona Jurídica</a>
+                </li>
             </ul>
         </li>
         <li>

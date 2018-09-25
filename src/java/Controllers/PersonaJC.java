@@ -23,14 +23,8 @@
  */
 package Controllers;
 
-import DAO.HistorialDAO;
-import DAO.MascotaDAO;
-import DAO.SurgeryDAO;
-import DAO.VeterinarioDAO;
-import Models.Historial;
-import Models.Mascota;
-import Models.RoomSurgery;
-import Models.Veterinario;
+import DAO.PersonaJDAO;
+import Models.PersonaJ;
 import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;
 import com.db4o.ext.DatabaseClosedException;
@@ -49,12 +43,10 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author John Wick Recargado
  */
-@WebServlet(name = "SurgeryC", urlPatterns = {"/surgery"})
-public class SurgeryC extends HttpServlet {
+@WebServlet(name = "PersonaJC", urlPatterns = {"/personaJ"})
+public class PersonaJC extends HttpServlet {
     //
-    SurgeryDAO sdao = new SurgeryDAO();
-    MascotaDAO mdao = new MascotaDAO();
-    VeterinarioDAO vdao = new VeterinarioDAO();
+    PersonaJDAO pdao = new PersonaJDAO();
     //
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -73,10 +65,10 @@ public class SurgeryC extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet SurgeryC</title>");            
+            out.println("<title>Servlet PersonaJC</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet SurgeryC at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet PersonaJC at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -94,38 +86,22 @@ public class SurgeryC extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //  sdao.clearDatabase();
+        List<PersonaJ> p2 = pdao.read();
         
-        //  RoomSurgery roomsurgery = new RoomSurgery();
-        //  Mascota mascota = mdao.findAMascotaByID("819faoro");
-        //  Veterinario veterinario = vdao.findAVeterinarioByDNI("00000000");
-        //  roomsurgery.setId("surgery#" + mascota.getId());
-        //  roomsurgery.setVeterinario(veterinario);
-        //  roomsurgery.setMascota(mascota);
+        request.setAttribute("lista", p2);
         
-        //  sdao.add(roomsurgery);
+        String dni = request.getParameter("dni");
         
-        ////////////////////////////////////////////////////////////////////////
-        List<RoomSurgery> spa2 = sdao.read();
-        ////////////////////////////////////////////////////////////////////////
-        request.setAttribute("lista", spa2);
-        
-        String id = request.getParameter("id");
-        System.out.println(id);
-        
-        if (id != null && !id.isEmpty()) {
+        if (dni != null && !dni.isEmpty()) {
             ObjectContainer db4o = Db4oEmbedded.openFile(Db4oEmbedded
                 .newConfiguration(), "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o");
-            RoomSurgery roomsurgeryx = sdao.findARoomSurgeryByID(db4o, id);
-            HistorialDAO hist = new HistorialDAO();
-            List<Historial> h = hist.findAHistoryByMascotaID(db4o, "faoro25595819clementinaperro");
-            // h.forEach(System.out::println);
+            PersonaJ persona = pdao.findAPersonaJByDNI(db4o, dni);
             db4o.close();
-            request.setAttribute("surgery", roomsurgeryx);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/Vistas/surgery-c.jsp");
+            request.setAttribute("personita", persona);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/Vistas/personaj-c.jsp");
             dispatcher.forward(request, response);
         }
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/Vistas/surgery-r.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/Vistas/personaj-r.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -142,26 +118,17 @@ public class SurgeryC extends HttpServlet {
             throws ServletException, IOException {
         ////////////////////////////////////////////////////////////////////////
         String dni = request.getParameter("dni");
-        String mascotaid = request.getParameter("mascota");
+        String name = request.getParameter("name");
         ////////////////////////////////////////////////////////////////////////
         
         String id = request.getParameter("id");
-        System.out.println(id);
         
         if (id == null || id.isEmpty()) {
            ObjectContainer db4o = Db4oEmbedded.openFile(Db4oEmbedded
                 .newConfiguration(), "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o");
         try {
             System.out.println("Database opened...");
-            Mascota mascota = mdao.Native(db4o, mascotaid);
-            System.out.println(mascota);
-            Veterinario veterinario = vdao.findAVeterinarioByDNI2(db4o, dni);
-            System.out.println(veterinario);
-            RoomSurgery roomsurgery = new RoomSurgery();
-            roomsurgery.setMascota(mascota);
-            roomsurgery.setVeterinario(veterinario);
-            roomsurgery.setId();
-            db4o.store(roomsurgery);
+            db4o.store(new PersonaJ(dni, name));
         }catch (DatabaseClosedException | DatabaseReadOnlyException e) {
             System.out.println("Database closed with errors..." + " " + e);
         }finally {
@@ -171,32 +138,19 @@ public class SurgeryC extends HttpServlet {
         } 
         } else {
             System.out.println("Entró en el else...");
-            System.out.println(mascotaid + " " + dni);
             ObjectContainer db4o = Db4oEmbedded.openFile(Db4oEmbedded
                 .newConfiguration(), "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o");
             try {
-                RoomSurgery room;
-                room = sdao.findARoomSurgeryByID(db4o, id);
-                room.setMascota(mdao.findAMascotaByID(db4o, mascotaid));
-                room.setVeterinario(vdao.findAVeterinarioByDNI2(db4o, dni));
-                room.setId();
-                db4o.store(room);
-                Historial history = new Historial();
-                history.setId(room.getMascota().getId());
-                history.setVeterinario(room.getVeterinario());
-                history.setDiagnostic("dwdwdwdwdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
-                history.setTreatment("wdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
-                history.setPrice(99.0);
-                // System.out.println(history.toString());
-                Mascota mhistory = room.getMascota();
-                mhistory.setHistory(history);
-                // System.out.println(mhistory);
-                db4o.store(mhistory);
+                PersonaJ personita;
+                personita = pdao.findAPersonaJByDNI(db4o, id);
+                personita.setDni(dni);
+                personita.setName(name);
+                db4o.store(personita);
             } finally {
                 db4o.close();
             }
         }
-        response.sendRedirect("/surgery");
+        response.sendRedirect("/personaJ");
     }
 
     /**

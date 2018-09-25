@@ -59,8 +59,18 @@
                                 <tr>
                                     <td><c:out value="${persona.dni}"/></td>
                                     <td><c:out value="${persona.name}"/></td>
-                                    <td><c:out value="${persona.lastname}"/></td>
-                                    <td><c:out value="${persona.phone}"/></td>
+                                    <c:if test = "${!(persona.lastname == null)}">
+                                        <td><c:out value="${persona.lastname}"/></td>
+                                    </c:if>
+                                    <c:if test = "${(persona.lastname == null)}">
+                                        <td><c:out value="/////"/></td>
+                                    </c:if>
+                                    <c:if test = "${!(persona.phone == null)}">
+                                        <td><c:out value="${persona.phone}"/></td>
+                                    </c:if>
+                                    <c:if test = "${(persona.phone == null)}">
+                                        <td><c:out value="/////"/></td>
+                                    </c:if>
                                     <td class="text-center">
                                         <a class="btn btn-default btn-outline-purple" href="${pageContext.request.contextPath}/persona?dni=${persona.dni}">Editar</a>
                                         <a class="btn btn-default btn-outline-purple" href="">Borrar</a> 

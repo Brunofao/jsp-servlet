@@ -3,7 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/John%20Wick%20Recargado/Documents/NetBeansProjects/Pet/web/index.jsp</file>
+            <file>file:/C:/Users/John%20Wick%20Recargado/Documents/NetBeansProjects/Pet/src/java/Models/Mascota.java</file>
+            <file>file:/C:/Users/John%20Wick%20Recargado/Documents/NetBeansProjects/Pet/src/java/Controllers/MascotaC.java</file>
+            <file>file:/C:/Users/John%20Wick%20Recargado/Documents/NetBeansProjects/Pet/web/Vistas/spa-c.jsp</file>
+            <file>file:/C:/Users/John%20Wick%20Recargado/Documents/NetBeansProjects/Pet/web/Vistas/historia-r.jsp</file>
+            <file>file:/C:/Users/John%20Wick%20Recargado/Documents/NetBeansProjects/Pet/web/CSS/styles.css</file>
+            <file>file:/C:/Users/John%20Wick%20Recargado/Documents/NetBeansProjects/Pet/src/java/Models/Historial.java</file>
+            <file>file:/C:/Users/John%20Wick%20Recargado/Documents/NetBeansProjects/Pet/web/Vistas/surgery-r.jsp</file>
+            <file>file:/C:/Users/John%20Wick%20Recargado/Documents/NetBeansProjects/Pet/src/java/Controllers/SurgeryC.java</file>
         </group>
     </open-files>
 </project-private>

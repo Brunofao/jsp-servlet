@@ -21,69 +21,49 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package Models;
+package DAO;
+
+import Models.Conexion;
+import Models.Persona;
+import Models.PersonaJ;
+import com.db4o.ObjectContainer;
+import com.db4o.ObjectSet;
+import com.db4o.query.Predicate;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author John Wick Recargado
  */
-public class Persona {
+public class PersonaJDAO {
     //
-    private String dni;
-    private String name;
-    private String lastname;
-    private String phone;
+    Conexion con;
+    ObjectContainer db = null;
     //
-
-    public Persona() {
+    
+    public PersonaJDAO() {
+        con = new Conexion();
     }
     
-    public Persona(String dni, String name) {
-        this.dni = dni;
-        this.name = name;
+    public List<PersonaJ> read() {
+        db = con.open();
+        List<PersonaJ> p = new ArrayList<>();
+        ObjectSet listP = db.queryByExample(PersonaJ.class);
+        listP.forEach((listP0) -> {
+            p.add((PersonaJ)listP0);
+        });
+        con.close(db);
+        return p;
     }
-
-    public Persona(String dni, String name, String lastname, String phone) {
-        this.dni = dni;
-        this.name = name;
-        this.lastname = lastname;
-        this.phone = phone;
-    }
-
-    public String getDni() {
-        return dni;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setDni(String dni) {
-        this.dni = dni;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    @Override
-    public String toString() {
-        return "Persona{" + "dni=" + dni + ", name=" + name + ", lastname=" + lastname + ", phone=" + phone + '}';
+    
+    public PersonaJ findAPersonaJByDNI(ObjectContainer db, String dni) {
+        PersonaJ toUpdate = db.query(new Predicate<PersonaJ>() {
+            @Override
+            public boolean match(PersonaJ persona) {
+                return persona.getDni().equals(dni);
+            }
+        }).get(0);
+        return toUpdate;
     }
 }

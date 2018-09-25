@@ -1,9 +1,9 @@
 <%-- 
-    Document   : history-r
-    Created on : 20/09/2018, 09:03:15 PM
+    Document   : personaj-c
+    Created on : 25/09/2018, 02:22:13 AM
     Author     : John Wick Recargado
 --%>
-                                                        
+
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 
 <!DOCTYPE html>
@@ -30,7 +30,7 @@
         -->
         
         <div class="modal fade" id="exampleModalUpdate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-xxl" role="document">
+            <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header no-border">
                         <h5 class="modal-title" id="exampleModalLabel"></h5>
@@ -43,40 +43,22 @@
                             <div class="container">
                                 <div class="row">
                                     <div class="p-4 col-12">
-                                        <h4 class="text-center pb-3">Historial Clínico</h4>
-                                        <!-- Table -->
-                                        <table id="fix-table" class="table table-bordered table-hover text-center table-responsive-sm table-responsive-md">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">#ID</th>
-                                                    <th scope="col">Nombre de la Mascota</th>
-                                                    <th scope="col">Dueño</th>
-                                                    <th scope="col">Veterinario tratante:</th>
-                                                    <th scope="col">Diagnóstico</th>
-                                                    <th scope="col">Tratamiento</th>
-                                                    <th scope="col">Precio</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <c:forEach var="historiax" items="${historia}">
-                                                        <tr>
-                                                            <td><c:out value="${historiax.id}"/></td>
-                                                            <td><c:out value="${mascotica.name}"/></td>
-                                                            <td><c:out value="${mascotica.persona.name} ${mascotica.persona.lastname} (${mascotica.persona.dni})"/></td>
-                                                            <td><c:out value="${historiax.veterinario.name} ${historiax.veterinario.lastname} (${historiax.veterinario.dni})"/></td>
-                                                            <td class="wr"><c:out value="${historiax.diagnostic}"/></td>
-                                                            <td class="wr"><c:out value="${historiax.treatment}"/></td>
-                                                            <td class="wr"><c:out value="${historiax.price}"/></td>
-                                                        </tr>
-                                                    </c:forEach>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                        <div class="d-flex justify-content-sm-center justify-content-md-end">
-                                            <button type="submit" class="btn btn-outline-primary btn-lg mr-1">Imprimir</button>
-                                            <button type="button" class="btn btn-outline-danger btn-lg" data-dismiss="modal">Atrás</button>
-                                        </div>
+                                        <form action="http://localhost:8080/personaJ" method="post" autocomplete="off">
+                                            <h4 class="text-center pb-3">Agregar Persona Jurídica</h1>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control form-control-lg" id="dni" name="dni" placeholder="Nº de Documento de Identidad" value="<c:out value="${personita.dni}"/>"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control form-control-lg" id="name" name="name" placeholder="Nombre" value="<c:out value="${personita.name}"/>"/>
+                                            </div>
+                                            <div class="form-group d-flex justify-content-center">
+                                                <c:if test="${not empty personita.dni}">
+                                                    <input type="hidden" name="id" value="${personita.dni}" />
+                                                </c:if>
+                                                <button type="submit" class="btn btn-outline-success btn-lg mr-1">Agregar persona jurídica</button>
+                                                <button type="button" class="btn btn-outline-danger btn-lg ml-1" data-dismiss="modal">Close</button> 
+                                            </div>
+                                        </form>                   
                                     </div>
                                 </div>
                             </div>

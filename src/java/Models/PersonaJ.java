@@ -28,5 +28,16 @@ package Models;
  * @author John Wick Recargado
  */
 public class PersonaJ extends Persona {
-    
+
+    public PersonaJ() {
+    }
+
+    public PersonaJ(String dni, String name) {
+        super(dni, name);
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + "PersonaJ{" + '}';
+    }
 }

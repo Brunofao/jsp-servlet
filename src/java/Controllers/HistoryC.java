@@ -23,16 +23,22 @@
  */
 package Controllers;
 
-import DAO.HistorialDAO;
 import DAO.MascotaDAO;
-import DAO.PersonaDAO;
+import DAO.SurgeryDAO;
+import DAO.VeterinarioDAO;
 import Models.Historial;
 import Models.Mascota;
+import Models.RoomSurgery;
 import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;
+import com.db4o.ext.DatabaseClosedException;
+import com.db4o.ext.DatabaseFileLockedException;
+import com.db4o.ext.DatabaseReadOnlyException;
+import com.db4o.ext.Db4oIOException;
+import com.db4o.ext.IncompatibleFileFormatException;
+import com.db4o.ext.OldFormatException;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -44,11 +50,12 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author John Wick Recargado
  */
-@WebServlet(name = "MascotaC", urlPatterns = {"/mascota"})
-public class MascotaC extends HttpServlet {
+@WebServlet(name = "HistoryC", urlPatterns = {"/history"})
+public class HistoryC extends HttpServlet {
     //
-    PersonaDAO pdao = new PersonaDAO();
+    SurgeryDAO sdao = new SurgeryDAO();
     MascotaDAO mdao = new MascotaDAO();
+    VeterinarioDAO vdao = new VeterinarioDAO();
     //
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -67,10 +74,10 @@ public class MascotaC extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet MascotaC</title>");            
+            out.println("<title>Servlet HistoryC</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet MascotaC at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet HistoryC at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -87,39 +94,49 @@ public class MascotaC extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException { 
-        ////////////////////////////////////////////////////////////////////////
-        List<Mascota> p2 = mdao.read();
-        ////////////////////////////////////////////////////////////////////////
-        request.setAttribute("lista", p2);
-        
+            throws ServletException, IOException {
         String id = request.getParameter("id");
-        String history = request.getParameter("history");
-        System.out.println(history);
+        System.out.println(id);
         
-        if (id != null && !id.isEmpty()) {
+        if (!(id == null || id.isEmpty())) {
             ObjectContainer db4o = Db4oEmbedded.openFile(Db4oEmbedded
-                .newConfiguration(), "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o");
-            Mascota mascotax = mdao.findAMascotaByID(db4o, id);
+                    .newConfiguration(), "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o");
+            RoomSurgery room;
+            room = sdao.findARoomSurgeryByID(db4o, id);
+            System.out.println(room);
             db4o.close();
-            request.setAttribute("mascotica", mascotax);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/Vistas/mascota-c.jsp");
-            dispatcher.forward(request, response);
-        } else if (history != null && !history.isEmpty()) {
-            ObjectContainer db4o = Db4oEmbedded.openFile(Db4oEmbedded
-                .newConfiguration(), "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o");
-            HistorialDAO hist = new HistorialDAO();
-            List<Historial> historylist = hist.findAHistoryByMascotaID(db4o, history);
-            Mascota mascotax = mdao.findAMascotaByID(db4o, history);
-            System.out.println(historylist);
-            db4o.close();
-            request.setAttribute("historia", historylist);
-            request.setAttribute("mascotica", mascotax);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/Vistas/historia-r.jsp");
+            request.setAttribute("roomHistory", room);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/Vistas/historia-c.jsp");
             dispatcher.forward(request, response);
         }
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/Vistas/mascota-r.jsp");
-        dispatcher.forward(request, response);
+        
+        /*
+        if (!(id == null || id.isEmpty())) {
+            ObjectContainer db4o = Db4oEmbedded.openFile(Db4oEmbedded
+                    .newConfiguration(), "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o");
+            try {
+                RoomSurgery room;
+                room = sdao.findARoomSurgeryByID(db4o, id);
+                room.setStatus(Boolean.FALSE);
+                System.out.println(room);
+                Historial history = new Historial();
+                history.setId(room.getMascota().getId());
+                history.setVeterinario(room.getVeterinario());
+                history.setDiagnostic("Mamá de las ratas se quedó sin milk");
+                history.setTreatment("Recargarle la leche");
+                history.setPrice(99.0);
+                Mascota mhistory = room.getMascota();
+                mhistory.setHistory(history);
+                db4o.store(room);
+                db4o.store(mhistory);
+                System.out.println(room);
+            }catch(DatabaseFileLockedException | DatabaseReadOnlyException | Db4oIOException | IncompatibleFileFormatException | OldFormatException e) {
+                System.out.println(e.toString());
+            }finally {
+                db4o.close();
+            }
+        }*/
+        response.sendRedirect("/surgery");
     }
 
     /**
@@ -133,45 +150,35 @@ public class MascotaC extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ////////////////////////////////////////////////////////////////////////
-        String dni = request.getParameter("dni");
-        String name = request.getParameter("name");
-        String species = request.getParameter("species");
-        ////////////////////////////////////////////////////////////////////////
-        
+        // response.sendRedirect("/surgery");
         String id = request.getParameter("id");
+        System.out.println(id);
+        String diagnostic = request.getParameter("diagnostic");
+        String treatment = request.getParameter("treatment");
+        Double price = Double.parseDouble(request.getParameter("price"));
         
-        if (id == null || id.isEmpty()) {
-            System.out.println("Entró en el if...");
-            ObjectContainer db4o = Db4oEmbedded.openFile(Db4oEmbedded
-                .newConfiguration(), "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o");
-            try {
-                Mascota mascotica = new Mascota();
-                mascotica.setPersona(pdao.Native(db4o, dni));
-                mascotica.setName(name);
-                mascotica.setSpecies(species);
-                mascotica.setId(mascotica.generateID());
-                db4o.store(mascotica); 
-            } finally {
-                db4o.close();
-            }
-        } else {
-            System.out.println("Entró en el else...");
-            ObjectContainer db4o = Db4oEmbedded.openFile(Db4oEmbedded
-                .newConfiguration(), "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o");
-            try {
-                Mascota mascotica;
-                mascotica = mdao.findAMascotaByID(db4o, id);
-                mascotica.setPersona(pdao.Native(db4o, dni));
-                mascotica.setName(name);
-                mascotica.setSpecies(species);
-                mascotica.setId(mascotica.generateID());
-                db4o.store(mascotica);
-            } finally {
-                db4o.close();
-            }
+        ObjectContainer db4o = Db4oEmbedded.openFile(Db4oEmbedded
+                    .newConfiguration(), "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o");
+        
+        try {
+            RoomSurgery room;
+            room = sdao.findARoomSurgeryByID(db4o, id);
+            System.out.println(room);
+            room.setStatus(Boolean.FALSE);
+            Historial history = new Historial();
+            history.setId(room.getMascota().getId());
+            history.setVeterinario(room.getVeterinario());
+            history.setDiagnostic(diagnostic);
+            history.setTreatment(treatment);
+            history.setPrice(price);
+            Mascota mhistory = room.getMascota();
+            mhistory.setHistory(history);
+            db4o.store(room);
+            db4o.store(mhistory);
+        }finally {
+            db4o.close();
         }
-        response.sendRedirect("/mascota");
+        response.sendRedirect("/surgery");
     }
 
     /**

@@ -106,12 +106,11 @@ public class SurgeryC extends HttpServlet {
         //  sdao.add(roomsurgery);
         
         ////////////////////////////////////////////////////////////////////////
-        List<RoomSurgery> spa2 = sdao.read();
+        List<RoomSurgery> spa2 = sdao.read2();
         ////////////////////////////////////////////////////////////////////////
         request.setAttribute("lista", spa2);
         
         String id = request.getParameter("id");
-        System.out.println(id);
         
         if (id != null && !id.isEmpty()) {
             ObjectContainer db4o = Db4oEmbedded.openFile(Db4oEmbedded
@@ -146,7 +145,6 @@ public class SurgeryC extends HttpServlet {
         ////////////////////////////////////////////////////////////////////////
         
         String id = request.getParameter("id");
-        System.out.println(id);
         
         if (id == null || id.isEmpty()) {
            ObjectContainer db4o = Db4oEmbedded.openFile(Db4oEmbedded
@@ -161,6 +159,7 @@ public class SurgeryC extends HttpServlet {
             roomsurgery.setMascota(mascota);
             roomsurgery.setVeterinario(veterinario);
             roomsurgery.setId();
+            roomsurgery.setStatus(Boolean.TRUE);
             db4o.store(roomsurgery);
         }catch (DatabaseClosedException | DatabaseReadOnlyException e) {
             System.out.println("Database closed with errors..." + " " + e);

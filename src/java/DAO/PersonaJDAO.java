@@ -24,7 +24,6 @@
 package DAO;
 
 import Models.Conexion;
-import Models.Persona;
 import Models.PersonaJ;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;

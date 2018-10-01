@@ -32,6 +32,7 @@ public class RoomSurgery {
     private String id;
     private Mascota mascota;
     private Veterinario veterinario;
+    private Boolean status;
     //
 
     public RoomSurgery() {
@@ -40,6 +41,7 @@ public class RoomSurgery {
     public RoomSurgery(Mascota mascota, Veterinario veterinario) {
         this.mascota = mascota;
         this.veterinario = veterinario;
+        this.status = Boolean.TRUE;
         this.id = this.generateID();
     }
 
@@ -53,6 +55,10 @@ public class RoomSurgery {
 
     public Veterinario getVeterinario() {
         return veterinario;
+    }
+    
+    public Boolean getStatus() {
+        return status;
     }
 
     public void setId(String id) {
@@ -71,12 +77,16 @@ public class RoomSurgery {
         this.veterinario = veterinario;
     }
     
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+    
     private String generateID() {
-        return ("surgery-" + this.mascota.getId());
+        return (this.veterinario.getReference() + "-surgery-" + this.mascota.getId() + this.mascota.hashCode());
     }
 
     @Override
     public String toString() {
-        return "RoomSurgery{" + "id=" + id + ", mascota=" + mascota + ", veterinario=" + veterinario + '}';
+        return "RoomSurgery{" + "id=" + id + ", mascota=" + mascota + ", veterinario=" + veterinario + ", status=" + status + '}';
     }
 }

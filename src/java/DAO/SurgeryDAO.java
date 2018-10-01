@@ -28,6 +28,7 @@ import Models.RoomSurgery;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.query.Predicate;
+import com.db4o.query.Query;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,6 +61,31 @@ public class SurgeryDAO {
         });
         con.close(db);
         return s;
+    }
+    
+    public List<RoomSurgery> read2() {
+        /*
+            List<Historial> l = new ArrayList<>();
+            Query query = db.query();
+            query.constrain(Historial.class);
+            query.descend("id").constrain(id);
+            ObjectSet result = query.execute();
+            result.forEach((l0) -> {
+                l.add((Historial)l0);
+            });
+            return l;
+        */
+        db = con.open();
+        List<RoomSurgery> r = new ArrayList<>();
+        Query query = db.query();
+        query.constrain(RoomSurgery.class);
+        query.descend("status").constrain(true);
+        ObjectSet result = query.execute();
+        result.forEach((r0) -> {
+            r.add((RoomSurgery) r0);
+        });
+        con.close(db);
+        return r;
     }
     
     public RoomSurgery findARoomSurgery(RoomSurgery s) {        

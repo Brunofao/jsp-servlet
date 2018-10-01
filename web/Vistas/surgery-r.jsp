@@ -69,7 +69,7 @@
                                     <td class="text-center">
                                         <a class="btn btn-default btn-outline-purple" href="${pageContext.request.contextPath}/surgery?id=${surgery.id}">Editar</a>
                                         <a class="btn btn-default btn-outline-purple" href="">Borrar</a>
-                                        <a class="btn btn-default btn-outline-success" href="${pageContext.request.contextPath}/history?id=${surgery.mascota.id}">Ya terminada</a>
+                                        <a class="btn btn-default btn-outline-success" href="${pageContext.request.contextPath}/history?id=${surgery.id}">Ya terminada</a>
                                     </td>
                                 </tr>
                             </c:forEach>

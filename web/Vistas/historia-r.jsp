@@ -59,11 +59,11 @@
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <c:forEach var="historiax" items="${historia}">
+                                                    <c:forEach var="historiax" items="${historietica}">
                                                         <tr>
-                                                            <td><c:out value="${historiax.id}"/></td>
-                                                            <td><c:out value="${mascotica.name}"/></td>
-                                                            <td><c:out value="${mascotica.persona.name} ${mascotica.persona.lastname} (${mascotica.persona.dni})"/></td>
+                                                            <td><c:out value="${historiax.mascota.id}"/></td>
+                                                            <td><c:out value="${historiax.mascota.name}"/></td>
+                                                            <td><c:out value="${historiax.mascota.persona.name} ${historiax.mascota.persona.lastname} (${historiax.mascota.persona.dni})"/></td>
                                                             <td><c:out value="${historiax.veterinario.name} ${historiax.veterinario.lastname} (${historiax.veterinario.dni})"/></td>
                                                             <td class="wr"><c:out value="${historiax.diagnostic}"/></td>
                                                             <td class="wr"><c:out value="${historiax.treatment}"/></td>

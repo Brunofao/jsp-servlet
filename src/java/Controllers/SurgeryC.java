@@ -23,11 +23,9 @@
  */
 package Controllers;
 
-import DAO.HistorialDAO;
 import DAO.MascotaDAO;
 import DAO.SurgeryDAO;
 import DAO.VeterinarioDAO;
-import Models.Historial;
 import Models.Mascota;
 import Models.RoomSurgery;
 import Models.Veterinario;
@@ -116,8 +114,8 @@ public class SurgeryC extends HttpServlet {
             ObjectContainer db4o = Db4oEmbedded.openFile(Db4oEmbedded
                 .newConfiguration(), "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o");
             RoomSurgery roomsurgeryx = sdao.findARoomSurgeryByID(db4o, id);
-            HistorialDAO hist = new HistorialDAO();
-            List<Historial> h = hist.findAHistoryByMascotaID(db4o, "faoro25595819clementinaperro");
+            // HistorialDAO hist = new HistorialDAO();
+            // List<Historial> h = hist.findAHistoryByMascotaID(db4o, "faoro25595819clementinaperro");
             // h.forEach(System.out::println);
             db4o.close();
             request.setAttribute("surgery", roomsurgeryx);
@@ -160,6 +158,10 @@ public class SurgeryC extends HttpServlet {
             roomsurgery.setVeterinario(veterinario);
             roomsurgery.setId();
             roomsurgery.setStatus(Boolean.TRUE);
+            mascota.setStatus(Boolean.FALSE);
+            veterinario.setStatus(Boolean.FALSE);
+            db4o.store(mascota);
+            db4o.store(veterinario);
             db4o.store(roomsurgery);
         }catch (DatabaseClosedException | DatabaseReadOnlyException e) {
             System.out.println("Database closed with errors..." + " " + e);
@@ -180,17 +182,6 @@ public class SurgeryC extends HttpServlet {
                 room.setVeterinario(vdao.findAVeterinarioByDNI2(db4o, dni));
                 room.setId();
                 db4o.store(room);
-                Historial history = new Historial();
-                history.setId(room.getMascota().getId());
-                history.setVeterinario(room.getVeterinario());
-                history.setDiagnostic("dwdwdwdwdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
-                history.setTreatment("wdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
-                history.setPrice(99.0);
-                // System.out.println(history.toString());
-                Mascota mhistory = room.getMascota();
-                mhistory.setHistory(history);
-                // System.out.println(mhistory);
-                db4o.store(mhistory);
             } finally {
                 db4o.close();
             }

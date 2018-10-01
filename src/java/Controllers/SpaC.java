@@ -149,6 +149,11 @@ public class SpaC extends HttpServlet {
             roomspa.setMascota(mascota);
             roomspa.setEstilista(estilista);
             roomspa.setId();
+            roomspa.setStatus(Boolean.TRUE);
+            mascota.setStatus(Boolean.FALSE);
+            estilista.setStatus(Boolean.FALSE);
+            db4o.store(mascota);
+            db4o.store(estilista);
             db4o.store(roomspa);
         }catch (DatabaseClosedException | DatabaseReadOnlyException e) {
             System.out.println("Database closed with errors..." + " " + e);

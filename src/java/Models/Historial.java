@@ -31,6 +31,7 @@ public class Historial {
     //
     private String id;
     private Veterinario veterinario;
+    private Mascota mascota;
     private String diagnostic;
     private String treatment;
     private Double price;
@@ -39,9 +40,10 @@ public class Historial {
     public Historial() {
     }
 
-    public Historial(String id, Veterinario veterinario, String diagnostic, String treatment, Double price) {
+    public Historial(String id, Veterinario veterinario, Mascota mascota, String diagnostic, String treatment, Double price) {
         this.id = id;
         this.veterinario = veterinario;
+        this.mascota = mascota;
         this.diagnostic = diagnostic;
         this.treatment = treatment;
         this.price = price;
@@ -53,6 +55,10 @@ public class Historial {
 
     public Veterinario getVeterinario() {
         return veterinario;
+    }
+
+    public Mascota getMascota() {
+        return mascota;
     }
 
     public String getDiagnostic() {
@@ -75,6 +81,10 @@ public class Historial {
         this.veterinario = veterinario;
     }
 
+    public void setMascota(Mascota mascota) {
+        this.mascota = mascota;
+    }
+
     public void setDiagnostic(String diagnostic) {
         this.diagnostic = diagnostic;
     }
@@ -89,6 +99,6 @@ public class Historial {
 
     @Override
     public String toString() {
-        return "Historial{" + "id=" + id + ", veterinario=" + veterinario + ", diagnostic=" + diagnostic + ", treatment=" + treatment + ", price=" + price + '}';
+        return "Historial{" + "id=" + id + ", veterinario=" + veterinario + ", mascota=" + mascota + ", diagnostic=" + diagnostic + ", treatment=" + treatment + ", price=" + price + '}';
     }
 }

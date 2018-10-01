@@ -110,11 +110,9 @@ public class MascotaC extends HttpServlet {
                 .newConfiguration(), "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o");
             HistorialDAO hist = new HistorialDAO();
             List<Historial> historylist = hist.findAHistoryByMascotaID(db4o, history);
-            Mascota mascotax = mdao.findAMascotaByID(db4o, history);
             System.out.println(historylist);
             db4o.close();
-            request.setAttribute("historia", historylist);
-            request.setAttribute("mascotica", mascotax);
+            request.setAttribute("historietica", historylist);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/Vistas/historia-r.jsp");
             dispatcher.forward(request, response);
         }
@@ -151,6 +149,7 @@ public class MascotaC extends HttpServlet {
                 mascotica.setName(name);
                 mascotica.setSpecies(species);
                 mascotica.setId(mascotica.generateID());
+                mascotica.setStatus(Boolean.TRUE);
                 db4o.store(mascotica); 
             } finally {
                 db4o.close();

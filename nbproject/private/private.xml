@@ -2,6 +2,19 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/John%20Wick%20Recargado/Documents/NetBeansProjects/Pet/src/java/Controllers/MascotaC.java</file>
+            <file>file:/C:/Users/John%20Wick%20Recargado/Documents/NetBeansProjects/Pet/src/java/Models/Mascota.java</file>
+            <file>file:/C:/Users/John%20Wick%20Recargado/Documents/NetBeansProjects/Pet/src/java/DAO/MascotaDAO.java</file>
+            <file>file:/C:/Users/John%20Wick%20Recargado/Documents/NetBeansProjects/Pet/web/Vistas/historia-r.jsp</file>
+            <file>file:/C:/Users/John%20Wick%20Recargado/Documents/NetBeansProjects/Pet/web/Vistas/mascota-r.jsp</file>
+            <file>file:/C:/Users/John%20Wick%20Recargado/Documents/NetBeansProjects/Pet/web/Vistas/veterinario-r.jsp</file>
+            <file>file:/C:/Users/John%20Wick%20Recargado/Documents/NetBeansProjects/Pet/src/java/DAO/HistorialDAO.java</file>
+            <file>file:/C:/Users/John%20Wick%20Recargado/Documents/NetBeansProjects/Pet/src/java/Controllers/VeterinarioC.java</file>
+            <file>file:/C:/Users/John%20Wick%20Recargado/Documents/NetBeansProjects/Pet/src/java/Models/Historial.java</file>
+            <file>file:/C:/Users/John%20Wick%20Recargado/Documents/NetBeansProjects/Pet/src/java/Controllers/HistoryC.java</file>
+            <file>file:/C:/Users/John%20Wick%20Recargado/Documents/NetBeansProjects/Pet/src/java/Models/Veterinario.java</file>
+            <file>file:/C:/Users/John%20Wick%20Recargado/Documents/NetBeansProjects/Pet/src/java/Controllers/SurgeryC.java</file>
+        </group>
     </open-files>
 </project-private>

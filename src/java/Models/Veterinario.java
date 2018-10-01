@@ -31,6 +31,7 @@ public class Veterinario extends Persona {
     //
     private String reference;
     private String specialist;
+    private Historial history;
     //
 
     public Veterinario() {
@@ -50,6 +51,10 @@ public class Veterinario extends Persona {
     public String getSpecialist() {
         return specialist;
     }
+    
+    public Historial getHistory() {
+        return history;
+    }
 
     public void setReference(String reference) {
         this.reference = reference;
@@ -61,6 +66,10 @@ public class Veterinario extends Persona {
 
     public void setSpecialist(String specialist) {
         this.specialist = specialist;
+    }
+    
+    public void setHistory(Historial history) {
+        this.history = history;
     }
     
     private String generateReference() {

@@ -62,7 +62,8 @@
                             <c:forEach var="veterinario" items="${lista}">
                                 <tr>
                                     <td><c:out value="${veterinario.name} ${veterinario.lastname} (${veterinario.dni})"/></td>
-                                    <td><c:out value="${veterinario.reference}"/></td>
+                                    <td><a class="btn btn-default btn-outline-purple" href="${pageContext.request.contextPath}/veterinario?history=${veterinario.reference}"><c:out value="${veterinario.reference}"/></a></td>
+                                    <%--<td><c:out value="${veterinario.reference}"/></td>--%>
                                     <td><c:out value="${veterinario.specialist}"/></td>
                                     <td class="text-center">
                                         <a class="btn btn-default btn-outline-purple" href="${pageContext.request.contextPath}/veterinario?reference=${veterinario.reference}">Editar</a>

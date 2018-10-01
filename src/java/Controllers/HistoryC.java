@@ -29,14 +29,9 @@ import DAO.VeterinarioDAO;
 import Models.Historial;
 import Models.Mascota;
 import Models.RoomSurgery;
+import Models.Veterinario;
 import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;
-import com.db4o.ext.DatabaseClosedException;
-import com.db4o.ext.DatabaseFileLockedException;
-import com.db4o.ext.DatabaseReadOnlyException;
-import com.db4o.ext.Db4oIOException;
-import com.db4o.ext.IncompatibleFileFormatException;
-import com.db4o.ext.OldFormatException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -152,29 +147,32 @@ public class HistoryC extends HttpServlet {
             throws ServletException, IOException {
         // response.sendRedirect("/surgery");
         String id = request.getParameter("id");
-        System.out.println(id);
         String diagnostic = request.getParameter("diagnostic");
         String treatment = request.getParameter("treatment");
         Double price = Double.parseDouble(request.getParameter("price"));
         
         ObjectContainer db4o = Db4oEmbedded.openFile(Db4oEmbedded
                     .newConfiguration(), "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o");
-        
         try {
             RoomSurgery room;
             room = sdao.findARoomSurgeryByID(db4o, id);
-            System.out.println(room);
+            Veterinario veterinario = room.getVeterinario();
+            Mascota mascota = room.getMascota();
             room.setStatus(Boolean.FALSE);
+            veterinario.setStatus(Boolean.TRUE);
+            mascota.setStatus(Boolean.TRUE);
+            System.out.println(room);
             Historial history = new Historial();
-            history.setId(room.getMascota().getId());
-            history.setVeterinario(room.getVeterinario());
+            history.setId(room.getMascota().getId() + room.getVeterinario().getReference());
+            history.setVeterinario(veterinario);
+            history.setMascota(mascota);
             history.setDiagnostic(diagnostic);
             history.setTreatment(treatment);
             history.setPrice(price);
-            Mascota mhistory = room.getMascota();
-            mhistory.setHistory(history);
+            mascota.setHistory(history);
             db4o.store(room);
-            db4o.store(mhistory);
+            db4o.store(veterinario);
+            db4o.store(mascota);
         }finally {
             db4o.close();
         }

@@ -33,6 +33,7 @@ public class Persona {
     private String name;
     private String lastname;
     private String phone;
+    private Boolean status;
     //
 
     public Persona() {
@@ -41,6 +42,7 @@ public class Persona {
     public Persona(String dni, String name) {
         this.dni = dni;
         this.name = name;
+        this.status = Boolean.TRUE;
     }
 
     public Persona(String dni, String name, String lastname, String phone) {
@@ -48,6 +50,7 @@ public class Persona {
         this.name = name;
         this.lastname = lastname;
         this.phone = phone;
+        this.status = Boolean.TRUE;
     }
 
     public String getDni() {
@@ -66,6 +69,10 @@ public class Persona {
         return phone;
     }
 
+    public Boolean getStatus() {
+        return status;
+    }
+
     public void setDni(String dni) {
         this.dni = dni;
     }
@@ -82,8 +89,12 @@ public class Persona {
         this.phone = phone;
     }
 
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
-        return "Persona{" + "dni=" + dni + ", name=" + name + ", lastname=" + lastname + ", phone=" + phone + '}';
+        return "Persona{" + "dni=" + dni + ", name=" + name + ", lastname=" + lastname + ", phone=" + phone + ", status=" + status + '}';
     }
 }

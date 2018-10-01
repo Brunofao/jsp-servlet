@@ -23,8 +23,10 @@
  */
 package Controllers;
 
+import DAO.HistorialDAO;
 import DAO.PersonaDAO;
 import DAO.VeterinarioDAO;
+import Models.Historial;
 import Models.Veterinario;
 import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;
@@ -94,6 +96,7 @@ public class VeterinarioC extends HttpServlet {
         request.setAttribute("lista", lv);
         
         String id = request.getParameter("reference");
+        String history = request.getParameter("history");
         
         if (id != null && !id.isEmpty()) {
             ObjectContainer db4o = Db4oEmbedded.openFile(Db4oEmbedded
@@ -103,6 +106,16 @@ public class VeterinarioC extends HttpServlet {
             db4o.close();
             request.setAttribute("veterinario", veterinariox);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/Vistas/veterinario-c.jsp");
+            dispatcher.forward(request, response);
+        }else if (history != null && !history.isEmpty()) {
+            ObjectContainer db4o = Db4oEmbedded.openFile(Db4oEmbedded
+                .newConfiguration(), "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o");
+            HistorialDAO hist = new HistorialDAO();
+            List<Historial> historylist = hist.findAHistoryByMascotaID(db4o, history);
+            System.out.println(historylist);
+            db4o.close();
+            request.setAttribute("historietica", historylist);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/Vistas/historia-r.jsp");
             dispatcher.forward(request, response);
         }
         RequestDispatcher dispatcher = request.getRequestDispatcher("/Vistas/veterinario-r.jsp");

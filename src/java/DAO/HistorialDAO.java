@@ -43,7 +43,7 @@ public class HistorialDAO {
         List<Historial> l = new ArrayList<>();
         Query query = db.query();
         query.constrain(Historial.class);
-        query.descend("id").constrain(id);
+        query.descend("id").constrain(id).contains();
         ObjectSet result = query.execute();
         result.forEach((l0) -> {
             l.add((Historial)l0);

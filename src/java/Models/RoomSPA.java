@@ -32,6 +32,7 @@ public class RoomSPA {
     private String id;
     private Mascota mascota;
     private Estilista estilista;
+    private Boolean status;
     //
 
     public RoomSPA() {
@@ -41,6 +42,7 @@ public class RoomSPA {
         this.mascota = mascota;
         this.estilista = estilista;
         this.id = this.generateID();
+        this.status = Boolean.TRUE;
     }
 
     public String getId() {
@@ -53,6 +55,10 @@ public class RoomSPA {
 
     public Estilista getEstilista() {
         return estilista;
+    }
+    
+    public Boolean getStatus() {
+        return status;
     }
 
     public void setId(String id) {
@@ -70,12 +76,16 @@ public class RoomSPA {
         this.estilista = estilista;
     }
     
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+    
     private String generateID() {
         return ("spa-" + this.mascota.getId());
     }
 
     @Override
     public String toString() {
-        return "RoomSPA{" + "id=" + id + ", mascota=" + mascota + ", estilista=" + estilista + '}';
+        return "RoomSPA{" + "id=" + id + ", mascota=" + mascota + ", estilista=" + estilista + ", status=" + status + '}';
     }
 }

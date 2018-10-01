@@ -38,21 +38,10 @@ public class Mascota {
     private String age;
     private String race;
     private Historial history;
+    private Boolean status;
     //
 
     public Mascota() {
-    }
-
-    public Mascota(Persona persona, String id, String name, String species, Float weight, String sex, String age, String race, Historial history) {
-        this.persona = persona;
-        this.id = id;
-        this.name = name;
-        this.species = species;
-        this.weight = weight;
-        this.sex = sex;
-        this.age = age;
-        this.race = race;
-        this.history = history;
     }
     
     public Mascota(Persona persona, String name, String species, Float weight, String sex, String age, String race, Historial history) {
@@ -65,6 +54,7 @@ public class Mascota {
         this.race = race;
         this.history = history;
         this.id = this.generateID();
+        this.status = Boolean.TRUE;
     }
 
     public Persona getPersona() {
@@ -101,6 +91,10 @@ public class Mascota {
 
     public Historial getHistory() {
         return history;
+    }
+    
+    public Boolean getStatus() {
+        return status;
     }
 
     public void setPersona(Persona persona) {
@@ -142,12 +136,16 @@ public class Mascota {
     public void setHistory(Historial history) {
         this.history = history;
     }
+    
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
 
     @Override
     public String toString() {
-        return "Mascota{" + "persona=" + persona + ", id=" + id + ", name=" + name + ", species=" + species + ", weight=" + weight + ", sex=" + sex + ", age=" + age + ", race=" + race + ", history=" + history + '}';
+        return "Mascota{" + "persona=" + persona + ", id=" + id + ", name=" + name + ", species=" + species + ", weight=" + weight + ", sex=" + sex + ", age=" + age + ", race=" + race + ", status=" + status + '}';
     }
-    
+
     /*
     @Override
     public String toString() {

@@ -56,7 +56,7 @@
                                     </c:if>
                                     <td class="text-center">
                                         <a class="btn btn-default btn-outline-purple" href="${pageContext.request.contextPath}/persona?dni=${persona.dni}">Editar</a>
-                                        <a class="btn btn-default btn-outline-purple" onclick="">Borrar</a> 
+                                        <a class="btn btn-default btn-outline-purple" href="">Borrar</a> 
                                     </td>
                                 </tr>
                             </c:forEach>

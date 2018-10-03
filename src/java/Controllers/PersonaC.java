@@ -46,7 +46,8 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "PersonaC", urlPatterns = {"/persona"})
 public class PersonaC extends HttpServlet {
     //
-    PersonaDAO pdao = new PersonaDAO();
+    private final PersonaDAO pdao = new PersonaDAO();
+    private final String path = "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o";
     //
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -94,7 +95,7 @@ public class PersonaC extends HttpServlet {
         
         if (dni != null && !dni.isEmpty()) {
             ObjectContainer db4o = Db4oEmbedded.openFile(Db4oEmbedded
-                .newConfiguration(), "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o");
+                .newConfiguration(), path);
             Persona persona = pdao.findAPersonaByDNI(db4o, dni);
             db4o.close();
             request.setAttribute("personita", persona);
@@ -122,12 +123,11 @@ public class PersonaC extends HttpServlet {
         String lastname = request.getParameter("lastname");
         String phone = request.getParameter("phone");
         ////////////////////////////////////////////////////////////////////////
-        
         String id = request.getParameter("id");
         
         if (id == null || id.isEmpty()) {
            ObjectContainer db4o = Db4oEmbedded.openFile(Db4oEmbedded
-                .newConfiguration(), "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o");
+                .newConfiguration(), path);
         try {
             System.out.println("Database opened...");
             db4o.store(new Persona(dni, name, lastname, phone));
@@ -141,7 +141,7 @@ public class PersonaC extends HttpServlet {
         } else {
             System.out.println("Entró en el else...");
             ObjectContainer db4o = Db4oEmbedded.openFile(Db4oEmbedded
-                .newConfiguration(), "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o");
+                .newConfiguration(), path);
             try {
                 Persona personita;
                 personita = pdao.findAPersonaByDNI(db4o, id);

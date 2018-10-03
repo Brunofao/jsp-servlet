@@ -47,6 +47,7 @@ import javax.servlet.http.HttpServletResponse;
 public class EstilistaC extends HttpServlet {
     //
     private final EstilistaDAO edao = new EstilistaDAO();
+    private final String path = "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o";
     //
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -95,8 +96,8 @@ public class EstilistaC extends HttpServlet {
         
         if (id != null && !id.isEmpty()) {
             ObjectContainer db4o = Db4oEmbedded.openFile(Db4oEmbedded
-                .newConfiguration(), "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o");
-            Estilista estilistax = edao.findAEstilistByDNI(db4o, id);
+                .newConfiguration(), path);
+            Estilista estilistax = edao.findAEstilistByReference(db4o, id);
             db4o.close();
             request.setAttribute("estilista", estilistax);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/Vistas/estilista-c.jsp");
@@ -124,12 +125,11 @@ public class EstilistaC extends HttpServlet {
         String phone = request.getParameter("phone");
         String specialist = request.getParameter("specialist");
         ////////////////////////////////////////////////////////////////////////
-        
         String id = request.getParameter("id");
         
         if (id == null || id.isEmpty()) {
            ObjectContainer db4o = Db4oEmbedded.openFile(Db4oEmbedded
-                .newConfiguration(), "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o");
+                .newConfiguration(), path);
         try {
             System.out.println("Database opened...");
             db4o.store(new Estilista(dni, name, lastname, phone, specialist));
@@ -143,10 +143,10 @@ public class EstilistaC extends HttpServlet {
         } else {
             System.out.println("Entró en el else...");
             ObjectContainer db4o = Db4oEmbedded.openFile(Db4oEmbedded
-                .newConfiguration(), "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o");
+                .newConfiguration(), path);
             try {
                 Estilista estilista;
-                estilista = edao.findAEstilistByDNI(db4o, id);
+                estilista = edao.findAEstilistByReference(db4o, id);
                 estilista.setDni(dni);
                 estilista.setName(name);
                 estilista.setLastname(lastname);

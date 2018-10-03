@@ -50,9 +50,10 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "SurgeryC", urlPatterns = {"/surgery"})
 public class SurgeryC extends HttpServlet {
     //
-    SurgeryDAO sdao = new SurgeryDAO();
-    MascotaDAO mdao = new MascotaDAO();
-    VeterinarioDAO vdao = new VeterinarioDAO();
+    private final SurgeryDAO sdao = new SurgeryDAO();
+    private final MascotaDAO mdao = new MascotaDAO();
+    private final VeterinarioDAO vdao = new VeterinarioDAO();
+    private final String path = "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o";
     //
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -91,18 +92,7 @@ public class SurgeryC extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        //  sdao.clearDatabase();
-        
-        //  RoomSurgery roomsurgery = new RoomSurgery();
-        //  Mascota mascota = mdao.findAMascotaByID("819faoro");
-        //  Veterinario veterinario = vdao.findAVeterinarioByDNI("00000000");
-        //  roomsurgery.setId("surgery#" + mascota.getId());
-        //  roomsurgery.setVeterinario(veterinario);
-        //  roomsurgery.setMascota(mascota);
-        
-        //  sdao.add(roomsurgery);
-        
+            throws ServletException, IOException {        
         ////////////////////////////////////////////////////////////////////////
         List<RoomSurgery> spa2 = sdao.read2();
         ////////////////////////////////////////////////////////////////////////
@@ -112,11 +102,9 @@ public class SurgeryC extends HttpServlet {
         
         if (id != null && !id.isEmpty()) {
             ObjectContainer db4o = Db4oEmbedded.openFile(Db4oEmbedded
-                .newConfiguration(), "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o");
+                .newConfiguration(), path);
             RoomSurgery roomsurgeryx = sdao.findARoomSurgeryByID(db4o, id);
-            // HistorialDAO hist = new HistorialDAO();
-            // List<Historial> h = hist.findAHistoryByMascotaID(db4o, "faoro25595819clementinaperro");
-            // h.forEach(System.out::println);
+            System.out.println(roomsurgeryx.getVeterinario());
             db4o.close();
             request.setAttribute("surgery", roomsurgeryx);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/Vistas/surgery-c.jsp");
@@ -146,12 +134,13 @@ public class SurgeryC extends HttpServlet {
         
         if (id == null || id.isEmpty()) {
            ObjectContainer db4o = Db4oEmbedded.openFile(Db4oEmbedded
-                .newConfiguration(), "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o");
+                .newConfiguration(), path);
         try {
             System.out.println("Database opened...");
-            Mascota mascota = mdao.Native(db4o, mascotaid);
+            Mascota mascota = mdao.findAMascotaByID(db4o, mascotaid);
             System.out.println(mascota);
-            Veterinario veterinario = vdao.findAVeterinarioByDNI2(db4o, dni);
+            Veterinario veterinario = vdao.findAVeterinarioByDNI(db4o, dni);
+            System.out.println(veterinario);
             System.out.println(veterinario);
             RoomSurgery roomsurgery = new RoomSurgery();
             roomsurgery.setMascota(mascota);
@@ -174,12 +163,12 @@ public class SurgeryC extends HttpServlet {
             System.out.println("Entró en el else...");
             System.out.println(mascotaid + " " + dni);
             ObjectContainer db4o = Db4oEmbedded.openFile(Db4oEmbedded
-                .newConfiguration(), "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o");
+                .newConfiguration(), path);
             try {
                 RoomSurgery room;
                 room = sdao.findARoomSurgeryByID(db4o, id);
                 room.setMascota(mdao.findAMascotaByID(db4o, mascotaid));
-                room.setVeterinario(vdao.findAVeterinarioByDNI2(db4o, dni));
+                room.setVeterinario(vdao.findAVeterinarioByDNI(db4o, dni));
                 room.setId();
                 db4o.store(room);
             } finally {

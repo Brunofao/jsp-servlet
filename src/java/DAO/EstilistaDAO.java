@@ -70,7 +70,7 @@ public class EstilistaDAO {
         return estilista;
     }
     
-    public Estilista findAEstilistByDNI(ObjectContainer db, String reference) {
+    public Estilista findAEstilistByReference(ObjectContainer db, String reference) {
         Estilista toUpdate = db.query(new Predicate<Estilista>() {
             @Override
             public boolean match(Estilista estilista) {
@@ -80,7 +80,7 @@ public class EstilistaDAO {
         return toUpdate;
     }
     
-    public Estilista findAEstilistByDNI2(ObjectContainer db, String dni) {
+    public Estilista findAEstilistByDNI(ObjectContainer db, String dni) {
         Estilista toUpdate = db.query(new Predicate<Estilista>() {
             @Override
             public boolean match(Estilista estilista) {

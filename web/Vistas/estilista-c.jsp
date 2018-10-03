@@ -29,19 +29,19 @@
                                         <form action="http://localhost:8080/estilista" method="post" autocomplete="off">
                                             <h4 class="text-center pb-3">Editar Estilista</h4>
                                             <div class="form-group">
-                                                <input type="text" class="form-control form-control-lg" id="dni" name="dni" placeholder="Nº de Documento de Identidad" value="<c:out value="${estilista.dni}"/>"/>
+                                                <input type="number" class="form-control form-control-lg" id="dni" name="dni" placeholder="Nº de Documento de Identidad" value="<c:out value="${estilista.dni}"/>" required/>
                                             </div>
                                             <div class="form-group">
-                                                <input type="text" class="form-control form-control-lg" id="name" name="name" placeholder="Nombre" value="<c:out value="${estilista.name}"/>"/>
+                                                <input type="text" class="form-control form-control-lg" id="name" name="name" placeholder="Nombre" value="<c:out value="${estilista.name}"/>" required/>
                                             </div>
                                             <div class="form-group">
-                                                <input type="text" class="form-control form-control-lg" id="lastname" name="lastname" placeholder="Apellido" value="<c:out value="${estilista.lastname}"/>"/>
+                                                <input type="text" class="form-control form-control-lg" id="lastname" name="lastname" placeholder="Apellido" value="<c:out value="${estilista.lastname}"/>" required/>
                                             </div>
                                             <div class="form-group">
-                                                <input type="text" class="form-control form-control-lg" id="phone" name="phone" placeholder="Teléfono" value="<c:out value="${estilista.phone}"/>"/>
+                                                <input type="number" class="form-control form-control-lg" id="phone" name="phone" placeholder="Teléfono" value="<c:out value="${estilista.phone}"/>"/>
                                             </div>
                                             <div class="form-group">
-                                                <input type="text" class="form-control form-control-lg" id="specialist" name="specialist" placeholder="Especialidad" value="<c:out value="${estilista.specialist}"/>"/>
+                                                <input type="text" class="form-control form-control-lg" id="specialist" name="specialist" placeholder="Especialidad" value="<c:out value="${estilista.specialist}"/>" required/>
                                             </div>
                                             <div class="form-group d-flex justify-content-center">
                                                 <c:if test="${not empty estilista.dni}">

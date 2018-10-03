@@ -71,7 +71,7 @@ public class VeterinarioDAO {
         return veterinario;
     }
     
-    public Veterinario findAVeterinarioByDNI(ObjectContainer db, String reference) {
+    public Veterinario findAVeterinarioByReference(ObjectContainer db, String reference) {
         Veterinario toUpdate = db.query(new Predicate<Veterinario>() {
             @Override
             public boolean match(Veterinario veterinario) {
@@ -81,7 +81,7 @@ public class VeterinarioDAO {
         return toUpdate;
     }
     
-    public Veterinario findAVeterinarioByDNI2(ObjectContainer db, String dni) {
+    public Veterinario findAVeterinarioByDNI(ObjectContainer db, String dni) {
         Veterinario toUpdate = db.query(new Predicate<Veterinario>() {
             @Override
             public boolean match(Veterinario veterinario) {

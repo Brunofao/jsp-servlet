@@ -154,6 +154,6 @@ public class Mascota {
     */
     
     public final String generateID () {
-        return this.persona.getDni(); // this.persona.getLastname().toLowerCase() + (this.persona.getDni() + this.name + this.species).toLowerCase();
+        return this.persona.getDni() + "-" + (this.persona.hashCode()/2); // this.persona.getLastname().toLowerCase() + (this.persona.getDni() + this.name + this.species).toLowerCase();
     }
 }

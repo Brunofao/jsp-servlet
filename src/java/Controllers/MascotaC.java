@@ -47,8 +47,9 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "MascotaC", urlPatterns = {"/mascota"})
 public class MascotaC extends HttpServlet {
     //
-    PersonaDAO pdao = new PersonaDAO();
-    MascotaDAO mdao = new MascotaDAO();
+    private final PersonaDAO pdao = new PersonaDAO();
+    private final MascotaDAO mdao = new MascotaDAO();
+    private final String path = "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o";
     //
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -95,11 +96,10 @@ public class MascotaC extends HttpServlet {
         
         String id = request.getParameter("id");
         String history = request.getParameter("history");
-        System.out.println(history);
         
         if (id != null && !id.isEmpty()) {
             ObjectContainer db4o = Db4oEmbedded.openFile(Db4oEmbedded
-                .newConfiguration(), "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o");
+                .newConfiguration(), path);
             Mascota mascotax = mdao.findAMascotaByID(db4o, id);
             db4o.close();
             request.setAttribute("mascotica", mascotax);
@@ -107,7 +107,7 @@ public class MascotaC extends HttpServlet {
             dispatcher.forward(request, response);
         } else if (history != null && !history.isEmpty()) {
             ObjectContainer db4o = Db4oEmbedded.openFile(Db4oEmbedded
-                .newConfiguration(), "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o");
+                .newConfiguration(), path);
             HistorialDAO hist = new HistorialDAO();
             List<Historial> historylist = hist.findAHistoryByMascotaID(db4o, history);
             System.out.println(historylist);
@@ -142,10 +142,10 @@ public class MascotaC extends HttpServlet {
         if (id == null || id.isEmpty()) {
             System.out.println("Entró en el if...");
             ObjectContainer db4o = Db4oEmbedded.openFile(Db4oEmbedded
-                .newConfiguration(), "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o");
+                .newConfiguration(), path);
             try {
                 Mascota mascotica = new Mascota();
-                mascotica.setPersona(pdao.Native(db4o, dni));
+                mascotica.setPersona(pdao.findAPersonaByDNI(db4o, dni));
                 mascotica.setName(name);
                 mascotica.setSpecies(species);
                 mascotica.setId(mascotica.generateID());
@@ -157,11 +157,11 @@ public class MascotaC extends HttpServlet {
         } else {
             System.out.println("Entró en el else...");
             ObjectContainer db4o = Db4oEmbedded.openFile(Db4oEmbedded
-                .newConfiguration(), "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o");
+                .newConfiguration(), path);
             try {
                 Mascota mascotica;
                 mascotica = mdao.findAMascotaByID(db4o, id);
-                mascotica.setPersona(pdao.Native(db4o, dni));
+                mascotica.setPersona(pdao.findAPersonaByDNI(db4o, dni));
                 mascotica.setName(name);
                 mascotica.setSpecies(species);
                 mascotica.setId(mascotica.generateID());

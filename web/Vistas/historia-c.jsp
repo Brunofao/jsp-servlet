@@ -42,13 +42,13 @@
                                                 </div> 
                                             </div>
                                             <div class="form-group">
-                                                <textarea class="form-control" id="diagnostic" name="diagnostic" placeholder="Diagnóstico"></textarea>
+                                                <textarea class="form-control" id="diagnostic" name="diagnostic" placeholder="Diagnóstico" required></textarea>
                                             </div>
                                             <div class="form-group">
-                                                <textarea class="form-control" id="treatment" name="treatment" placeholder="Tratamiento"></textarea>
+                                                <textarea class="form-control" id="treatment" name="treatment" placeholder="Tratamiento" required></textarea>
                                             </div>
                                             <div class="form-group">
-                                                <input type="text" class="form-control form-control-lg" id="price" name="price" placeholder="Precio de la operación"/>
+                                                <input type="number" class="form-control form-control-lg" id="price" name="price" placeholder="Precio de la operación" required/>
                                             </div>
                                             <div class="form-group d-flex justify-content-center">
                                                 <c:if test="${not empty roomHistory.id}">

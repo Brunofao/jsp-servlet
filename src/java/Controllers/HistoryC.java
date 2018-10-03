@@ -48,9 +48,10 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "HistoryC", urlPatterns = {"/history"})
 public class HistoryC extends HttpServlet {
     //
-    SurgeryDAO sdao = new SurgeryDAO();
-    MascotaDAO mdao = new MascotaDAO();
-    VeterinarioDAO vdao = new VeterinarioDAO();
+    private final SurgeryDAO sdao = new SurgeryDAO();
+    private final MascotaDAO mdao = new MascotaDAO();
+    private final VeterinarioDAO vdao = new VeterinarioDAO();
+    private final String path = "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o";
     //
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -90,12 +91,12 @@ public class HistoryC extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        ////////////////////////////////////////////////////////////////////////
         String id = request.getParameter("id");
-        System.out.println(id);
-        
+        ////////////////////////////////////////////////////////////////////////
         if (!(id == null || id.isEmpty())) {
             ObjectContainer db4o = Db4oEmbedded.openFile(Db4oEmbedded
-                    .newConfiguration(), "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o");
+                    .newConfiguration(), path);
             RoomSurgery room;
             room = sdao.findARoomSurgeryByID(db4o, id);
             System.out.println(room);
@@ -104,33 +105,6 @@ public class HistoryC extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/Vistas/historia-c.jsp");
             dispatcher.forward(request, response);
         }
-        
-        /*
-        if (!(id == null || id.isEmpty())) {
-            ObjectContainer db4o = Db4oEmbedded.openFile(Db4oEmbedded
-                    .newConfiguration(), "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o");
-            try {
-                RoomSurgery room;
-                room = sdao.findARoomSurgeryByID(db4o, id);
-                room.setStatus(Boolean.FALSE);
-                System.out.println(room);
-                Historial history = new Historial();
-                history.setId(room.getMascota().getId());
-                history.setVeterinario(room.getVeterinario());
-                history.setDiagnostic("Mamá de las ratas se quedó sin milk");
-                history.setTreatment("Recargarle la leche");
-                history.setPrice(99.0);
-                Mascota mhistory = room.getMascota();
-                mhistory.setHistory(history);
-                db4o.store(room);
-                db4o.store(mhistory);
-                System.out.println(room);
-            }catch(DatabaseFileLockedException | DatabaseReadOnlyException | Db4oIOException | IncompatibleFileFormatException | OldFormatException e) {
-                System.out.println(e.toString());
-            }finally {
-                db4o.close();
-            }
-        }*/
         response.sendRedirect("/surgery");
     }
 
@@ -145,14 +119,15 @@ public class HistoryC extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // response.sendRedirect("/surgery");
+        ////////////////////////////////////////////////////////////////////////
         String id = request.getParameter("id");
         String diagnostic = request.getParameter("diagnostic");
         String treatment = request.getParameter("treatment");
         Double price = Double.parseDouble(request.getParameter("price"));
+        ////////////////////////////////////////////////////////////////////////
         
         ObjectContainer db4o = Db4oEmbedded.openFile(Db4oEmbedded
-                    .newConfiguration(), "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o");
+                    .newConfiguration(), path);
         try {
             RoomSurgery room;
             room = sdao.findARoomSurgeryByID(db4o, id);

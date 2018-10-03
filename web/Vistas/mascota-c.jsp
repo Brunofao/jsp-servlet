@@ -44,15 +44,15 @@
                                                 <select class="form-control form-control-lg custom-select" id="dni" name="dni">
                                                     <option value="<c:out value="${mascotica.persona.dni}"/>">${mascotica.persona.name} ${mascotica.persona.lastname}</option>
                                                     <% for(int i = 0; i < p.size(); i++) { %>
-                                                        <option value="<% out.print(p.get(i).getDni()); %>"><% out.print(p.get(i).getName() + " " + p.get(i).getLastname()); %></option>
+                                                        <option value="<% out.print(p.get(i).getDni()); %>"><% out.print(p.get(i).getName() + " " + p.get(i).getLastname()); %><% out.print(" " + (p.get(i).getDni())); %></option>
                                                     <%}%>
                                                 </select>
                                             </div>
                                             <div class="form-group">
-                                                <input type="text" class="form-control form-control-lg" id="name" name="name" placeholder="Nombre" value="<c:out value="${mascotica.name}"/>"/>
+                                                <input type="text" class="form-control form-control-lg" id="name" name="name" placeholder="Nombre" value="<c:out value="${mascotica.name}"/>" required/>
                                             </div>
                                             <div class="form-group">
-                                                <input type="text" class="form-control form-control-lg" id="species" name="species" placeholder="Especie" value="<c:out value="${mascotica.species}"/>"/>
+                                                <input type="text" class="form-control form-control-lg" id="species" name="species" placeholder="Especie" value="<c:out value="${mascotica.species}"/>"required/>
                                             </div>
                                             <div class="form-group d-flex justify-content-center">
                                                 <c:if test="${not empty mascotica.id}">

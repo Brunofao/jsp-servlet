@@ -52,11 +52,12 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "SpaC", urlPatterns = {"/spa"})
 public class SpaC extends HttpServlet {
     //
-    PersonaDAO pdao = new PersonaDAO();
-    SurgeryDAO sdao = new SurgeryDAO();
-    SpaDAO spadao = new SpaDAO();
-    MascotaDAO mdao = new MascotaDAO();
-    EstilistaDAO edao = new EstilistaDAO();
+    private final PersonaDAO pdao = new PersonaDAO();
+    private final SurgeryDAO sdao = new SurgeryDAO();
+    private final SpaDAO spadao = new SpaDAO();
+    private final MascotaDAO mdao = new MascotaDAO();
+    private final EstilistaDAO edao = new EstilistaDAO();
+    private final String path = "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o";
     //
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -106,7 +107,7 @@ public class SpaC extends HttpServlet {
         
         if (id != null && !id.isEmpty()) {
             ObjectContainer db4o = Db4oEmbedded.openFile(Db4oEmbedded
-                .newConfiguration(), "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o");
+                .newConfiguration(), path);
             RoomSPA roomspax = spadao.findARoomSPAByID(db4o, id);
             db4o.close();
             request.setAttribute("spa", roomspax);
@@ -133,18 +134,15 @@ public class SpaC extends HttpServlet {
         String dni = request.getParameter("dni");
         String mascotaid = request.getParameter("mascota");
         ////////////////////////////////////////////////////////////////////////
-        
-        
         String id = request.getParameter("id");
-        //  System.out.println(id);
         
         if (id == null || id.isEmpty()) {
            ObjectContainer db4o = Db4oEmbedded.openFile(Db4oEmbedded
-                .newConfiguration(), "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o");
+                .newConfiguration(), path);
         try {
             System.out.println("Database opened...");
-            Mascota mascota = mdao.Native(db4o, mascotaid);
-            Estilista estilista = edao.findAEstilistByDNI2(db4o, dni);
+            Mascota mascota = mdao.findAMascotaByID(db4o, mascotaid);
+            Estilista estilista = edao.findAEstilistByDNI(db4o, dni);
             RoomSPA roomspa = new RoomSPA();
             roomspa.setMascota(mascota);
             roomspa.setEstilista(estilista);
@@ -166,12 +164,12 @@ public class SpaC extends HttpServlet {
             System.out.println("Entró en el else...");
             System.out.println(mascotaid + " " + dni);
             ObjectContainer db4o = Db4oEmbedded.openFile(Db4oEmbedded
-                .newConfiguration(), "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o");
+                .newConfiguration(), path);
             try {
                 RoomSPA room;
                 room = spadao.findARoomSPAByID(db4o, id);
                 room.setMascota(mdao.findAMascotaByID(db4o, mascotaid));
-                room.setEstilista(edao.findAEstilistByDNI2(db4o, dni));
+                room.setEstilista(edao.findAEstilistByDNI(db4o, dni));
                 room.setId();
                 db4o.store(room);
             } finally {

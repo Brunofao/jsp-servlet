@@ -29,10 +29,10 @@
                                         <form action="http://localhost:8080/personaJ" method="post" autocomplete="off">
                                             <h4 class="text-center pb-3">Agregar Persona Jurídica</h1>
                                             <div class="form-group">
-                                                <input type="text" class="form-control form-control-lg" id="dni" name="dni" placeholder="Nº de Documento de Identidad" value="<c:out value="${personita.dni}"/>"/>
+                                                <input type="number" class="form-control form-control-lg" id="dni" name="dni" placeholder="Nº de Documento de Identidad" value="<c:out value="${personita.dni}"/>" required/>
                                             </div>
                                             <div class="form-group">
-                                                <input type="text" class="form-control form-control-lg" id="name" name="name" placeholder="Nombre" value="<c:out value="${personita.name}"/>"/>
+                                                <input type="text" class="form-control form-control-lg" id="name" name="name" placeholder="Nombre" value="<c:out value="${personita.name}"/>" required/>
                                             </div>
                                             <div class="form-group d-flex justify-content-center">
                                                 <c:if test="${not empty personita.dni}">

@@ -82,26 +82,7 @@ public class MascotaDAO {
         }).get(0);
         return toUpdate;
     }
-    
-    public Mascota findAMascotaByID(ObjectContainer db, String id, String name, String species) {
-        Mascota toUpdate = db.query(new Predicate<Mascota>() {
-            @Override
-            public boolean match(Mascota mascota) {
-                return mascota.getId().equals(id) && mascota.getName().equals(name) && mascota.getSpecies().equals(species);
-            }
-        }).get(0);
-        return toUpdate;
-    }
-    
-    public Mascota Native(ObjectContainer db, String id) {
-        Mascota toUpdate = db.query(new Predicate<Mascota>() {
-        @Override
-        public boolean match(Mascota mascota) {
-            return mascota.getId().equals(id);
-        }}).get(0);
-        return toUpdate;
-    }
-    
+        
     public Mascota findAMascotaByPersonaDNI(String dni) {
         db = con.open();
         Mascota toUpdate = db.query(new Predicate<Mascota>() {

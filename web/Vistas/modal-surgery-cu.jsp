@@ -38,16 +38,20 @@
                                     <div class="form-group">
                                         <select class="form-control form-control-lg custom-select" id="dni" name="dni">
                                             <option selected disabled>Elige a un veterinario</option>
-                                            <% for(int i = 0; i < v.size() && v.get(i).getStatus(); i++) { %>
-                                                <option value="<% out.print(v.get(i).getDni()); %>"><% out.print(v.get(i).getName() + " " + v.get(i).getLastname()); %></option>
+                                            <% for(int i = 0; i < v.size(); i++) { %>
+                                                <% if (v.get(i).getStatus()) { %>
+                                                    <option value="<% out.print(v.get(i).getDni()); %>"><% out.print(v.get(i).getName() + " " + v.get(i).getLastname()); %></option>
+                                                <%}%>
                                             <%}%>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <select class="form-control form-control-lg custom-select" id="mascota" name="mascota">
                                         <option selected disabled>Elige a una mascota</option>
-                                        <% for(int i = 0; i < m.size() && m.get(i).getStatus(); i++) { %>
-                                            <option value="<% out.print(m.get(i).getId()); %>"><% out.print(m.get(i).getName() + " " + m.get(i).getSpecies()); %></option>
+                                        <% for(int i = 0; i < m.size(); i++) { %>
+                                            <% if (m.get(i).getStatus()) { %>
+                                                <option value="<% out.print(m.get(i).getId()); %>"><% out.print(m.get(i).getName() + " " + m.get(i).getSpecies()); %></option>
+                                            <%}%>
                                         <%}%>
                                     </select>
                                     </div>

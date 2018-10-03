@@ -58,7 +58,7 @@
                                         </table>
                                         <div class="d-flex justify-content-sm-center justify-content-md-end">
                                             <button type="submit" class="btn btn-outline-primary btn-lg mr-1">Imprimir</button>
-                                            <button type="button" class="btn btn-outline-danger btn-lg" data-dismiss="modal">Atrás</button>
+                                            <a href="/mascota" class="btn btn-outline-danger btn-lg">Atrás</a>
                                         </div>
                                     </div>
                                 </div>

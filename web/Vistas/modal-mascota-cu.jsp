@@ -35,7 +35,7 @@
                                         <select class="form-control form-control-lg custom-select" id="dni" name="dni">
                                             <option selected disabled>Elige un titular</option>
                                             <% for(int i = 0; i < p.size(); i++) { %>
-                                                <option value="<% out.print(p.get(i).getDni()); %>"><% out.print(p.get(i).getName() + " " + p.get(i).getLastname()); %></option>
+                                                <option value="<% out.print(p.get(i).getDni()); %>"><% out.print(p.get(i).getName() + " " + p.get(i).getLastname()); %><% out.print(" " + (p.get(i).getDni())); %></option>
                                             <%}%>
                                         </select>
                                     </div>

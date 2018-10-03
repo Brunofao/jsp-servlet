@@ -29,19 +29,19 @@
                                         <form action="http://localhost:8080/veterinario" method="post" autocomplete="off">
                                             <h4 class="text-center pb-3">Agregar Veterinario</h1>
                                             <div class="form-group">
-                                                <input type="text" class="form-control form-control-lg" id="dni" name="dni" placeholder="Nº de Documento de Identidad" value="<c:out value="${veterinario.dni}"/>"/>
+                                                <input type="number" class="form-control form-control-lg" id="dni" name="dni" placeholder="Nº de Documento de Identidad" value="<c:out value="${veterinario.dni}"/>" required/>
                                             </div>
                                             <div class="form-group">
-                                                <input type="text" class="form-control form-control-lg" id="name" name="name" placeholder="Nombre" value="<c:out value="${veterinario.name}"/>"/>
+                                                <input type="text" class="form-control form-control-lg" id="name" name="name" placeholder="Nombre" value="<c:out value="${veterinario.name}"/>" required/>
                                             </div>
                                             <div class="form-group">
-                                                <input type="text" class="form-control form-control-lg" id="lastname" name="lastname" placeholder="Apellido" value="<c:out value="${veterinario.lastname}"/>"/>
+                                                <input type="text" class="form-control form-control-lg" id="lastname" name="lastname" placeholder="Apellido" value="<c:out value="${veterinario.lastname}"/>" required/>
                                             </div>
                                             <div class="form-group">
-                                                <input type="text" class="form-control form-control-lg" id="phone" name="phone" placeholder="Teléfono" value="<c:out value="${veterinario.phone}"/>"/>
+                                                <input type="number" class="form-control form-control-lg" id="phone" name="phone" placeholder="Teléfono" value="<c:out value="${veterinario.phone}"/>" required/>
                                             </div>
                                             <div class="form-group">
-                                                <input type="text" class="form-control form-control-lg" id="specialist" name="specialist" placeholder="Especialidad" value="<c:out value="${veterinario.specialist}"/>"/>
+                                                <input type="text" class="form-control form-control-lg" id="specialist" name="specialist" placeholder="Especialidad" value="<c:out value="${veterinario.specialist}"/>" required/>
                                             </div>
                                             <div class="form-group d-flex justify-content-center">
                                                 <c:if test="${not empty veterinario.dni}">

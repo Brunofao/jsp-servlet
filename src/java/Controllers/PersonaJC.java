@@ -46,7 +46,8 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "PersonaJC", urlPatterns = {"/personaJ"})
 public class PersonaJC extends HttpServlet {
     //
-    PersonaJDAO pdao = new PersonaJDAO();
+    private final PersonaJDAO pdao = new PersonaJDAO();
+    private final String path = "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o";
     //
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -86,15 +87,16 @@ public class PersonaJC extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        ////////////////////////////////////////////////////////////////////////
         List<PersonaJ> p2 = pdao.read();
-        
+        ////////////////////////////////////////////////////////////////////////
         request.setAttribute("lista", p2);
         
         String dni = request.getParameter("dni");
         
         if (dni != null && !dni.isEmpty()) {
             ObjectContainer db4o = Db4oEmbedded.openFile(Db4oEmbedded
-                .newConfiguration(), "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o");
+                .newConfiguration(), path);
             PersonaJ persona = pdao.findAPersonaJByDNI(db4o, dni);
             db4o.close();
             request.setAttribute("personita", persona);
@@ -125,7 +127,7 @@ public class PersonaJC extends HttpServlet {
         
         if (id == null || id.isEmpty()) {
            ObjectContainer db4o = Db4oEmbedded.openFile(Db4oEmbedded
-                .newConfiguration(), "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o");
+                .newConfiguration(), path);
         try {
             System.out.println("Database opened...");
             db4o.store(new PersonaJ(dni, name));
@@ -139,7 +141,7 @@ public class PersonaJC extends HttpServlet {
         } else {
             System.out.println("Entró en el else...");
             ObjectContainer db4o = Db4oEmbedded.openFile(Db4oEmbedded
-                .newConfiguration(), "C:\\Users\\John Wick Recargado\\Documents\\NetBeansProjects\\pet.db4o");
+                .newConfiguration(), path);
             try {
                 PersonaJ personita;
                 personita = pdao.findAPersonaJByDNI(db4o, id);

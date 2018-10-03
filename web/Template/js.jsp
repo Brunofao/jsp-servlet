@@ -11,7 +11,7 @@
 <script src="JS/solid.js"></script>
 <script src="JS/fontawesome.js"></script>
 <script type="text/javascript">
-    $(document).ready(function () {
+    $( document ).ready(function () {
         $("#sidebar").mCustomScrollbar({
             theme: "minimal"
         });
@@ -28,6 +28,7 @@
                 $(this).attr('data-target', "#exampleModal");
             });
         */
+       $('#exampleModalUpdate').modal('show');
     });
 </script>
 

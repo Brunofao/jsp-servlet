@@ -55,12 +55,6 @@
                     </div>
                 </section> 
             </div>
-            <div class="modal-footer no-border justify-content-center">
-                <!--
-                    <button type="submit" class="btn btn-outline-success btn-lg">Agregar mascota</button>
-                    <button type="button" class="btn btn-outline-danger btn-lg" data-dismiss="modal">Close</button>
-                -->
-            </div>
         </div>
     </div>
 </div>
